@@ -1,4 +1,4 @@
-CC = g++-12
+CC = g++
 LDFLAGS = -std=c++20 -O3 -lm
 SOURCES = parser.cpp main.cpp
 OBJECTS = $(SOURCES:.c=.o)
