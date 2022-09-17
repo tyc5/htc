@@ -1,0 +1,54 @@
+NonuniformGrid	on		
+Linearization	on		
+Disable_radiation	on		
+			
+caseWidth	81.9		
+caseHeight	11.9514		
+caseLength	63		
+			
+xNumGrid	30		
+yNumGrid	60		
+			
+xUpDieGrid	5		
+yUpDieGrid	5		
+zUpDieGrid	10		
+			
+xBtDieGrid	5		
+yBtDieGrid	5		
+zBtDieGrid	10		
+			
+Source	Nx	Ny	Nz
+Source	6.67283	6.67283	0
+End			
+			
+Z_Layer_Name	Z_Layer_Thickness	Z_Layer_Number	Die_Layer
+Bottom	3	1	
+PCB	1.45136	1	
+BGA	0.3	1	
+SBT	0.5	1	
+Bump	0.072289	1	
+Die	0.071711	1	
+PKG	0.556	1	
+TIM	3	1	
+Top	3	1	
+End			
+			
+T_Expansion	35		
+			
+effHt	10		
+effHb	10		
+effHxMin	0		
+effHxMax	0		
+effHyMin	0		
+effHyMax	0		
+			
+stoppingCriterionHTCSteady	0.05		
+stoppingCriterionHTCTran	0.1		
+			
+emissivityTop	0.8		
+emissivityBottom	0.8		
+emissivitySide	0.8		
+			
+kappaX_Air	0.0241		
+kappaY_Air	0.0241		
+kappaZ_Air	0.0241		

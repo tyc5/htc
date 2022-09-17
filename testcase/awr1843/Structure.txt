@@ -1,0 +1,75 @@
+Unit mm						
+						
+Case	AWR1843_Center					
+Location	0	0	0			
+Geometry	63	81.9	11.9514			
+						
+Block	PCB					
+Location	0	0	3			
+Geometry	63	81.9	1.45136			
+Material	Eff_PCB					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	TIM					
+Location	26.25	35.7	5.95136			
+Geometry	10.5	10.5	3			
+Material	TIM_TG_A6200F					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	Case_Bottom					
+Location	0	0	0			
+Geometry	63	81.9	3			
+Material	Acrylic					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	Case_Top					
+Location	0	0	8.95136			
+Geometry	63	81.9	3			
+Material	Acrylic					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	AWR1843_package					
+Location	26.25	35.7	4.45136			
+Geometry	10.5	10.5	1.5			
+Material	Mold					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	AWR1843_Die					
+Location	28.1636	37.6136	5.323649			
+Geometry	6.67283	6.67283	0.071711			
+Material	Die_Si					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	AWR1843_Bump					
+Location	28.1636	37.6136	5.25136			
+Geometry	6.67283	6.67283	0.072289			
+Material	Bump					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	AWR1843_SBT					
+Location	26.25	35.7	4.75136			
+Geometry	10.5	10.5	0.5			
+Material	SBT					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	AWR1843_BGA					
+Location	26.25	35.7	4.45136			
+Geometry	10.5	10.5	0.3			
+Material	Ball					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	Source					
+Location	28.1636	37.6136	5.32365			
+Geometry	6.67283	6.67283	0			
+Material	Power					
+Face	T					
+End						
