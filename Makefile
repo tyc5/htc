@@ -1,4 +1,4 @@
-CXX = clang++
+CXX = g++
 LDFLAGS = -std=c++2a -O3 -lm
 SOURCES = parser.cpp main.cpp
 OBJECTS = $(SOURCES:.c=.o)
