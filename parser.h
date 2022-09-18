@@ -7,22 +7,40 @@
 #include <vector>
 #include <sstream>
 
+struct Point {
+    double x;
+    double y;
+    double z;
+};
+
 struct Block {
     std::string name;
-    double ori;
+    Point loc;
     double length;
     double width;
     double height;
 };
 
+// Place space
+struct Space {
+    std::string unit;
+    Block space;
+};
+
+struct SolidBlock {
+    Block solid;
+    std::string material;
+    // double emissivity[8];
+};
+
 class Data {
     public:
-        std::vector<Block> blocks;
+        std::vector<SolidBlock> blocks;
 };
 
 class Parser {
     public:
-        void parser(std::string filename);
+        void parser(std::string filename, Data& data);
 };
 
 #endif
