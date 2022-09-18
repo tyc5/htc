@@ -7,6 +7,7 @@ int main(int argc, char* argv[]) {
     start = clock();
 
     Parser parser;
+    Data data;
 
     if (argc != 3) {
         std::cerr << "Usage: ./HTC [input] [output]" << std::endl;
@@ -14,7 +15,7 @@ int main(int argc, char* argv[]) {
     }
     std::cout << "\n/----- Case: " << argv[1] << " -----/\n";
 
-    parser.parser(argv[1]);
+    parser.parser(argv[1], data);
     // parser.check(data);
 
     time_t end = clock();
