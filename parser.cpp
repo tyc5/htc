@@ -25,13 +25,13 @@ void Parser::parser(std::string filename, Data& data) {
           , place_space.space.loc.y
           , place_space.space.loc.z);
     in_file >> str
-            >> place_space.space.length
-            >> place_space.space.width
-            >> place_space.space.height;
+            >> place_space.space.len_x
+            >> place_space.space.len_y
+            >> place_space.space.len_z;
     printf("place geometry: (%f, %f, %f)\n"
-          , place_space.space.length
-          , place_space.space.width
-          , place_space.space.height);
+          , place_space.space.len_x
+          , place_space.space.len_y
+          , place_space.space.len_z);
     std::cout << std::endl;
     // Solid Block
     SolidBlock solid_block;
@@ -45,9 +45,9 @@ void Parser::parser(std::string filename, Data& data) {
                 >> solid_block.solid.loc.z;
         // geometry
         in_file >> str
-                >> solid_block.solid.length
-                >> solid_block.solid.width
-                >> solid_block.solid.height;
+                >> solid_block.solid.len_x
+                >> solid_block.solid.len_y
+                >> solid_block.solid.len_z;
         // material
         in_file >> str >> solid_block.material;
         if (solid_block.material == "Power") break;
@@ -68,17 +68,17 @@ void Parser::parser(std::string filename, Data& data) {
     }
     
     for (const auto& b: data.solid_blocks) {
-        printf("Name: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\nEmissivity:"
+        printf("\nName: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\nEmissivity:"
             , b.solid.name.c_str()
             , b.solid.loc.x
             , b.solid.loc.y
             , b.solid.loc.z
-            , b.solid.length
-            , b.solid.width
-            , b.solid.height
+            , b.solid.len_x
+            , b.solid.len_y
+            , b.solid.len_z
             , b.material.c_str());
         for (int i = 0; i < 6; ++i) std::cout << " " << b.emissivity[i];
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
     in_file.close();
 }

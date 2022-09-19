@@ -16,9 +16,9 @@ struct Point {
 struct Block {
     std::string name;
     Point loc;
-    double length;
-    double width;
-    double height;
+    double len_x;
+    double len_y;
+    double len_z;
 };
 
 // Place space
