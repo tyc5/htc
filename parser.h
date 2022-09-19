@@ -30,12 +30,12 @@ struct Space {
 struct SolidBlock {
     Block solid;
     std::string material;
-    // double emissivity[8];
+    
 };
 
 class Data {
     public:
-        std::vector<SolidBlock> blocks;
+        std::vector<SolidBlock> solid_blocks;
 };
 
 class Parser {

@@ -59,22 +59,11 @@ void Parser::parser(std::string filename, Data& data) {
         //     solid_block.emissivity[i] = e;
         // }
         in_file >> str;
-        // printf("Name: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\n"
-        //     , solid_block.solid.name.c_str()
-        //     , solid_block.solid.loc.x
-        //     , solid_block.solid.loc.y
-        //     , solid_block.solid.loc.z
-        //     , solid_block.solid.length
-        //     , solid_block.solid.width
-        //     , solid_block.solid.height
-        //     , solid_block.material.c_str());
-        // for (const auto& e: solid_block.emissivity)
-        //     printf(" %f", e);
-        // std::cout << std::endl;        
-        data.blocks.emplace_back(solid_block);
+                
+        data.solid_blocks.emplace_back(solid_block);
     }
     
-    for (const auto& b: data.blocks) {
+    for (const auto& b: data.solid_blocks) {
         printf("Name: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\n\n"
             , b.solid.name.c_str()
             , b.solid.loc.x
