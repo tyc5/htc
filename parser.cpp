@@ -52,7 +52,11 @@ void Parser::parser(std::string filename, Data& data) {
         in_file >> str >> solid_block.material;
         if (solid_block.material == "Power") break;
         // emissivity
-        for (int i = 0; i <= 6; ++i) in_file >> str;
+        in_file >> str;
+        for (int i = 0; i < 6; ++i) {
+            in_file >> solid_block.emissivity[i];
+        }
+        // for (int i = 0; i <= 6; ++i) in_file >> str;
         // for (int i = 0; i < 6; ++i) {
         //     double e;
         //     in_file >> e;
@@ -64,7 +68,7 @@ void Parser::parser(std::string filename, Data& data) {
     }
     
     for (const auto& b: data.solid_blocks) {
-        printf("Name: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\n\n"
+        printf("Name: %s\nLocation: (%f, %f, %f)\nGeometry: (%f, %f, %f)\nMaterial: %s\nEmissivity:"
             , b.solid.name.c_str()
             , b.solid.loc.x
             , b.solid.loc.y
@@ -73,6 +77,8 @@ void Parser::parser(std::string filename, Data& data) {
             , b.solid.width
             , b.solid.height
             , b.material.c_str());
+        for (int i = 0; i < 6; ++i) std::cout << " " << b.emissivity[i];
     }
+    std::cout << std::endl;
     in_file.close();
 }

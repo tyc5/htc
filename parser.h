@@ -30,7 +30,7 @@ struct Space {
 struct SolidBlock {
     Block solid;
     std::string material;
-    
+    double emissivity[6];  
 };
 
 class Data {
