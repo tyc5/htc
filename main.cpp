@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "corner_link.h"
 #include <ctime>
 
 time_t start;
@@ -8,6 +9,7 @@ int main(int argc, char* argv[]) {
 
     Parser parser;
     Data data;
+    CornerLink corner_link;
 
     if (argc != 3) {
         std::cerr << "Usage: ./HTC [input] [output]" << std::endl;
@@ -17,6 +19,7 @@ int main(int argc, char* argv[]) {
 
     parser.parser(argv[1], data);
     // parser.check(data);
+    corner_link.init(data);
 
     time_t end = clock();
     float t_used = (float)(end - start) / CLOCKS_PER_SEC;
