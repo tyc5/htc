@@ -10,7 +10,15 @@ void CornerLink::init(Data& data) {
         double len_x = b.solid.len_x;
         double len_y = b.solid.len_y;
         double len_z = b.solid.len_z;
+        std::cout << "Block: " << b.solid.name << std::endl;
         printf("---: (%f, %f, %f)\n", x, y, z);
         printf("+--: (%f, %f, %f)\n", x + len_x, y, z);
+        printf("-+-: (%f, %f, %f)\n", x, y + len_y, z);
+        printf("--+: (%f, %f, %f)\n", x, y, z + len_z);
+        printf("++-: (%f, %f, %f)\n", x + len_x, y + len_y, z);
+        printf("-++: (%f, %f, %f)\n", x, y + len_y, z + len_z);
+        printf("+-+: (%f, %f, %f)\n", x + len_x, y, z + len_z);
+        printf("+++: (%f, %f, %f)\n", x + len_x, y + len_y, z + len_z);
+        std::cout << std::endl;
     }
 }
