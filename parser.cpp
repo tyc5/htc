@@ -24,15 +24,15 @@ void Parser::parser(std::string filename, Data &data) {
     Point &space_loc = data.place_space.space.loc;
     Corners &space_corners = data.place_space.space.corners;
     // opposite corners
-    space.corners.nnn = Point(space_loc.x, space_loc.y, space_loc.z);
-    space.corners.npp = Point(space_loc.x, space_loc.y + space.len_y, space_loc.z + space.len_z);
-    space.corners.pnp = Point(space_loc.x + space.len_x, space_loc.y, space_loc.z + space.len_z);
-    space.corners.ppn = Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z);
-    // linking corners
     space.corners.nnp = Point(space_loc.x, space_loc.y, space_loc.z + space.len_z);
     space.corners.npn = Point(space_loc.x, space_loc.y + space.len_y, space_loc.z);
     space.corners.pnn = Point(space_loc.x + space.len_x, space_loc.y, space_loc.z);
     space.corners.ppp = Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z + space.len_z);
+    // linking corners
+    space.corners.nnn = Point(space_loc.x, space_loc.y, space_loc.z);
+    space.corners.npp = Point(space_loc.x, space_loc.y + space.len_y, space_loc.z + space.len_z);
+    space.corners.pnp = Point(space_loc.x + space.len_x, space_loc.y, space_loc.z + space.len_z);
+    space.corners.ppn = Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z);
     std::cout << std::endl;
     // Solid Block
     SolidBlock solid_block;
@@ -62,15 +62,15 @@ void Parser::parser(std::string filename, Data &data) {
         double &len_z = solid_block.solid.len_z;
         Corners &corners = solid_block.solid.corners;
         // opposite corners
-        corners.nnn = Point(x, y, z);
-        corners.npp = Point(x, y + len_y, z + len_z);
-        corners.pnp = Point(x + len_x, y, z + len_z);
-        corners.ppn = Point(x + len_x, y + len_y, z);
-        // linking corners
         corners.nnp = Point(x, y, z + len_z);
         corners.npn = Point(x, y + len_y, z);
         corners.pnn = Point(x + len_x, y, z);
         corners.ppp = Point(x + len_x, y + len_y, z + len_z);
+        // linking corners
+        corners.nnn = Point(x, y, z);
+        corners.npp = Point(x, y + len_y, z + len_z);
+        corners.pnp = Point(x + len_x, y, z + len_z);
+        corners.ppn = Point(x + len_x, y + len_y, z);
 
         data.solid_blocks.emplace_back(solid_block);
     }
@@ -122,18 +122,16 @@ void Parser::print_info(Data &data) {
 
         // opposite corners
         std::cout << "\nopposite corners: \n";
-        printf("nnn: (%f, %f, %f)\n", corners.nnn.x, corners.nnn.y, corners.nnn.z);
-        printf("npp: (%f, %f, %f)\n", corners.npp.x, corners.npp.y, corners.npp.z);
-        printf("pnp: (%f, %f, %f)\n", corners.pnp.x, corners.pnp.y, corners.pnp.z);
-        printf("ppn: (%f, %f, %f)\n", corners.ppn.x, corners.ppn.y, corners.ppn.z);
-
-        // linking corners
-        std::cout << "\nlinking corners: \n";
         printf("nnp: (%f, %f, %f)\n", corners.nnp.x, corners.nnp.y, corners.nnp.z);
         printf("npn: (%f, %f, %f)\n", corners.npn.x, corners.npn.y, corners.npn.z);
         printf("pnn: (%f, %f, %f)\n", corners.pnn.x, corners.pnn.y, corners.pnn.z);
         printf("ppp: (%f, %f, %f)\n", corners.ppn.x, corners.ppn.y, corners.ppn.z);
 
-        //
+        // linking corners
+        std::cout << "\nlinking corners: \n";
+        printf("nnn: (%f, %f, %f)\n", corners.nnn.x, corners.nnn.y, corners.nnn.z);
+        printf("npp: (%f, %f, %f)\n", corners.npp.x, corners.npp.y, corners.npp.z);
+        printf("pnp: (%f, %f, %f)\n", corners.pnp.x, corners.pnp.y, corners.pnp.z);
+        printf("ppn: (%f, %f, %f)\n", corners.ppn.x, corners.ppn.y, corners.ppn.z);
     }
 }
