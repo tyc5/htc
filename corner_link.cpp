@@ -5,7 +5,7 @@ bool compare_x(SolidBlock b1, SolidBlock b2) {
 }
 
 bool compare_y(SolidBlock b1, SolidBlock b2) {
-    return (b1.solid.corners.nnn.y < b2.solid.corners.nnn.y)
+    return (b1.solid.corners.nnn.y < b2.solid.corners.nnn.y);
 }
 
 void CornerLink::get_corner_link(Data& data) {
