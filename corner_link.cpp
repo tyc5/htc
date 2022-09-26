@@ -1,11 +1,16 @@
 #include "corner_link.h"
 
 bool compare_x(SolidBlock b1, SolidBlock b2) {
-    return ((b1.solid.corners.nnn.x < b2.solid.corners.nnn.x));
+    return (b1.solid.corners.nnn.x < b2.solid.corners.nnn.x);
+}
+
+bool compare_y(SolidBlock b1, SolidBlock b2) {
+    return (b1.solid.corners.nnn.y < b2.solid.corners.nnn.y)
 }
 
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
+    std::cout << "\n/===== Before sort =====/\n";
     print_blocks(data, 0);
     std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare_x);
     std::cout << "\n/===== After sort =====/\n";
