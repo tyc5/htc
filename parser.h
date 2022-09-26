@@ -21,8 +21,10 @@ struct Corners {
     // -: n, +: p
     // opposite corners:  {− − +(nnp), − + −(npn), + − −(pnn), + + +(ppp)}
     Point nnp, npn, pnn, ppp;
+    std::unordered_map<std::string, Point> opposite_corner;
     // linking corners: {− − −(nnn), − + +(npp), + − +(pnp), + + −(ppn)}
     Point nnn, npp, pnp, ppn;
+    std::unordered_map<std::string, Point> linking_corner;
 };
 
 struct Block {
