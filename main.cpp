@@ -18,8 +18,9 @@ int main(int argc, char* argv[]) {
     std::cout << "\n/----- Case: " << argv[1] << " -----/\n";
 
     parser.parser(argv[1], data);
-    // parser.check(data);
-    corner_link.init(data);
+    parser.print_info(data);
+    corner_link.get_corner_link(data);
+    
 
     time_t end = clock();
     float t_used = (float)(end - start) / CLOCKS_PER_SEC;
