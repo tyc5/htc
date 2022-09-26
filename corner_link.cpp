@@ -1,24 +1,19 @@
 #include "corner_link.h"
 
-bool compare(SolidBlock b1, SolidBlock b2) {
-    if (b1.solid.loc.x != b2.solid.loc.x)
-        return ((b1.solid.loc.x < b2.solid.loc.x) && (b1.solid.loc.x + b1.solid.len_x < b2.solid.loc.x));
-    if (b1.solid.loc.y != b2.solid.loc.y)
-        return ((b1.solid.loc.y < b2.solid.loc.y) && (b1.solid.loc.y + b1.solid.len_y < b2.solid.loc.y));
-    if (b1.solid.loc.z != b2.solid.loc.z)
-        return ((b1.solid.loc.z < b2.solid.loc.z) && (b1.solid.loc.z + b1.solid.len_z < b2.solid.loc.z));
+bool compare_x(SolidBlock b1, SolidBlock b2) {
+    return ((b1.solid.corners.nnn.x < b2.solid.corners.nnn.x));
 }
 
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
-    print_blocks(data);
-    // std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare);
-    // std::cout << "After sort\n";
-    // print_blocks(data);
+    print_blocks(data, 0);
+    std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare_x);
+    std::cout << "\n/===== After sort =====/\n";
+    print_blocks(data, 0);
     
 }
 
-void CornerLink::print_blocks(Data& data) {
+void CornerLink::print_blocks(Data& data, int mode) {
     for (const auto& b: data.solid_blocks) {
         double x = b.solid.loc.x;
         double y = b.solid.loc.y;
@@ -28,13 +23,20 @@ void CornerLink::print_blocks(Data& data) {
         double len_z = b.solid.len_z;
         // Corners corners = b.solid.corners;
         std::cout << "\nBlock: " << b.solid.name << std::endl;
-        printf("---: (%f, %f, %f)\n", x, y, z);
-        printf("+--: (%f, %f, %f)\n", x + len_x, y, z);
-        printf("-+-: (%f, %f, %f)\n", x, y + len_y, z);
-        printf("--+: (%f, %f, %f)\n", x, y, z + len_z);
-        printf("++-: (%f, %f, %f)\n", x + len_x, y + len_y, z);
-        printf("-++: (%f, %f, %f)\n", x, y + len_y, z + len_z);
-        printf("+-+: (%f, %f, %f)\n", x + len_x, y, z + len_z);
-        printf("+++: (%f, %f, %f)\n", x + len_x, y + len_y, z + len_z);
+        if (mode) {
+            printf("---: (%f, %f, %f)\n", x, y, z);
+            printf("+--: (%f, %f, %f)\n", x + len_x, y, z);
+            printf("-+-: (%f, %f, %f)\n", x, y + len_y, z);
+            printf("--+: (%f, %f, %f)\n", x, y, z + len_z);
+            printf("++-: (%f, %f, %f)\n", x + len_x, y + len_y, z);
+            printf("-++: (%f, %f, %f)\n", x, y + len_y, z + len_z);
+            printf("+-+: (%f, %f, %f)\n", x + len_x, y, z + len_z);
+            printf("+++: (%f, %f, %f)\n", x + len_x, y + len_y, z + len_z);
+        }
+        else {
+            printf("Min X: %f, Max X: %f\n", x, x + len_x);
+            printf("Min Y: %f, Max Y: %f\n", y, y + len_y);
+            printf("Min Z: %f, Max Z: %f\n", z, z + len_z);
+        }
     }
 }
