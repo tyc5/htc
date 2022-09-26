@@ -1,6 +1,6 @@
 #include "parser.h"
 
-void Parser::parser(std::string filename, Data& data) {
+void Parser::parser(std::string filename, Data &data) {
     std::cout << ">> Parsing...\n";
     std::ifstream in_file;
     in_file.open(filename, std::ios::in);
@@ -13,19 +13,13 @@ void Parser::parser(std::string filename, Data& data) {
     // Place Space
     Space &place_space = data.place_space;
     in_file >> str >> place_space.unit;
-    
+
     in_file >> str >> place_space.space.name;
-    
-    in_file >> str
-            >> place_space.space.loc.x
-            >> place_space.space.loc.y
-            >> place_space.space.loc.z;
-    
-    in_file >> str
-            >> place_space.space.len_x
-            >> place_space.space.len_y
-            >> place_space.space.len_z;
-    
+
+    in_file >> str >> place_space.space.loc.x >> place_space.space.loc.y >> place_space.space.loc.z;
+
+    in_file >> str >> place_space.space.len_x >> place_space.space.len_y >> place_space.space.len_z;
+
     Block &space = data.place_space.space;
     Point &space_loc = data.place_space.space.loc;
     Corners &space_corners = data.place_space.space.corners;
@@ -46,15 +40,9 @@ void Parser::parser(std::string filename, Data& data) {
         // name
         in_file >> str >> solid_block.solid.name;
         // location
-        in_file >> str
-                >> solid_block.solid.loc.x
-                >> solid_block.solid.loc.y
-                >> solid_block.solid.loc.z;
+        in_file >> str >> solid_block.solid.loc.x >> solid_block.solid.loc.y >> solid_block.solid.loc.z;
         // geometry
-        in_file >> str
-                >> solid_block.solid.len_x
-                >> solid_block.solid.len_y
-                >> solid_block.solid.len_z;
+        in_file >> str >> solid_block.solid.len_x >> solid_block.solid.len_y >> solid_block.solid.len_z;
         // material
         in_file >> str >> solid_block.material;
         if (solid_block.material == "Power") break;
@@ -104,23 +92,17 @@ void Parser::parser(std::string filename, Data& data) {
     in_file.close();
 }
 
-void Parser::print_info(Data& data) {
+void Parser::print_info(Data &data) {
     std::cout << "\n>>> Print Info...\n";
     std::cout << ">>>> Place Space Info: \n";
     Space &place_space = data.place_space;
     std::cout << "place unit: " << place_space.unit << std::endl;
     std::cout << "place name: " << place_space.space.name << std::endl;
-    printf("place location: (%f, %f, %f)\n"
-          , place_space.space.loc.x
-          , place_space.space.loc.y
-          , place_space.space.loc.z);
-    printf("place geometry: (%f, %f, %f)\n"
-          , place_space.space.len_x
-          , place_space.space.len_y
-          , place_space.space.len_z);
-    
+    printf("place location: (%f, %f, %f)\n", place_space.space.loc.x, place_space.space.loc.y, place_space.space.loc.z);
+    printf("place geometry: (%f, %f, %f)\n", place_space.space.len_x, place_space.space.len_y, place_space.space.len_z);
+
     std::cout << "\n>>>> Blocks Info: \n";
-    for (const auto& b: data.solid_blocks) {
+    for (const auto &b : data.solid_blocks) {
         double x = b.solid.loc.x;
         double y = b.solid.loc.y;
         double z = b.solid.loc.z;
@@ -137,7 +119,7 @@ void Parser::print_info(Data& data) {
         printf("-++: (%f, %f, %f)\n", x, y + len_y, z + len_z);
         printf("+-+: (%f, %f, %f)\n", x + len_x, y, z + len_z);
         printf("+++: (%f, %f, %f)\n", x + len_x, y + len_y, z + len_z);
-        
+
         // opposite corners
         std::cout << "\nopposite corners: \n";
         printf("nnn: (%f, %f, %f)\n", corners.nnn.x, corners.nnn.y, corners.nnn.z);
@@ -151,7 +133,7 @@ void Parser::print_info(Data& data) {
         printf("npn: (%f, %f, %f)\n", corners.npn.x, corners.npn.y, corners.npn.z);
         printf("pnn: (%f, %f, %f)\n", corners.pnn.x, corners.pnn.y, corners.pnn.z);
         printf("ppp: (%f, %f, %f)\n", corners.ppn.x, corners.ppn.y, corners.ppn.z);
-        
-        // 
+
+        //
     }
 }
