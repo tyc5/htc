@@ -16,8 +16,9 @@ void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n/===== After sort =====/\n";
     print_blocks(data, 0);
 
+    // Find neighboring corners for each block
     for (auto& b1: data.solid_blocks) {
-
+        
     }
     
 }
