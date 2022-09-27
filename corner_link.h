@@ -9,6 +9,9 @@ class CornerLink {
 public:
     void get_corner_link(Data& data);
     void print_blocks(Data& data, int mode);
+    bool same_coordi(auto& v, auto& w);
+    std::string coordi(auto& v);
+    int get_ham_dist(auto& v, auto& w);
 };
 
 #endif
