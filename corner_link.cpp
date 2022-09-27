@@ -8,6 +8,21 @@ bool compare(SolidBlock& b1, SolidBlock& b2) {
            ((loc_b1.y == loc_b2.y) && (loc_b1.z < loc_b2.z));
 }
 
+bool CornerLink::same_coordi(auto& v, auto& w) {
+    return ((v.second.x == w.second.x) &&
+            (v.second.y == w.second.y) &&
+            (v.second.z == w.second.z));
+}
+
+std::string CornerLink::coordi(auto& v) {
+    std::string res = "";
+    res = v.first + ":(" +
+          std::to_string(v.second.x) + ", " +
+          std::to_string(v.second.y) + ", " +
+          std::to_string(v.second.z) + ")";
+    return res;
+}
+
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
     // std::cout << "\n/===== Before sort =====/\n";
@@ -18,16 +33,28 @@ void CornerLink::get_corner_link(Data& data) {
 
     // Find neighboring corners for each block
     for (auto& b1: data.solid_blocks) {
-        for (auto& linking_corner: b1.solid.corners.linking_corners) {
+        for (auto& v: b1.solid.corners.linking_corners) {
             for (auto& b2: data.solid_blocks) {
                 if (&b1 == &b2) continue;
-                for (auto& opposite_corner: b2.solid.corners.opposite_corners) {
-                    
+                std::cout << "b1: " << b1.solid.name << " b2: " << b2.solid.name << std::endl;
+                for (auto& w: b2.solid.corners.opposite_corners) {
+                    std::cout << "v: " << coordi(v) << " w: " << coordi(w) << std::endl;
+                    std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
+                    std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
                 }
+                std::cout << std::endl;
             }
         }
     }
     
+}
+
+int CornerLink::get_ham_dist(auto& v, auto& w) {
+    int ham_dist = 0;
+    for (int i = 0; i < v.first.size(); ++i)
+        if (v.first[i] != w.first[i]) ham_dist++;
+
+    return ham_dist;
 }
 
 void CornerLink::print_blocks(Data& data, int mode) {
