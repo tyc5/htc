@@ -10,15 +10,22 @@ bool compare(SolidBlock& b1, SolidBlock& b2) {
 
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
-    std::cout << "\n/===== Before sort =====/\n";
-    print_blocks(data, 0);
+    // std::cout << "\n/===== Before sort =====/\n";
+    // print_blocks(data, 0);
     std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare);
-    std::cout << "\n/===== After sort =====/\n";
-    print_blocks(data, 0);
+    // std::cout << "\n/===== After sort =====/\n";
+    // print_blocks(data, 0);
 
     // Find neighboring corners for each block
     for (auto& b1: data.solid_blocks) {
-        
+        for (auto& linking_corner: b1.solid.corners.linking_corners) {
+            for (auto& b2: data.solid_blocks) {
+                if (&b1 == &b2) continue;
+                for (auto& opposite_corner: b2.solid.corners.opposite_corners) {
+                    
+                }
+            }
+        }
     }
     
 }
