@@ -14,7 +14,7 @@ bool CornerLink::same_coordi(auto& v, auto& w) {
             (v.second.z == w.second.z));
 }
 
-std::string CornerLink::coordi(auto& v) {
+std::string CornerLink::coordi_info(auto& v) {
     std::string res = "";
     res = v.first + ":(" +
           std::to_string(v.second.x) + ", " +
@@ -38,7 +38,7 @@ void CornerLink::get_corner_link(Data& data) {
                 if (&b1 == &b2) continue;
                 std::cout << "b1: " << b1.solid.name << " b2: " << b2.solid.name << std::endl;
                 for (auto& w: b2.solid.corners.opposite_corners) {
-                    std::cout << "v: " << coordi(v) << " w: " << coordi(w) << std::endl;
+                    std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
                     std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
                     std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
                 }
