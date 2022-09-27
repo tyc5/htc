@@ -107,7 +107,7 @@ void Parser::parser(std::string filename, Data &data) {
         std::cout << std::endl;
     }
     */
-    print_info(data);
+    // print_info(data);
     in_file.close();
 }
 
