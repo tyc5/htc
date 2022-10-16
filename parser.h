@@ -58,6 +58,7 @@ class Data {
 public:
     Space place_space;
     std::vector<SolidBlock> solid_blocks;
+    std::multimap<Point, std::unordered_map<std::string, std::string>> corner_links;
 };
 
 class Parser {
