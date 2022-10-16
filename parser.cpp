@@ -20,27 +20,27 @@ void Parser::parser(std::string filename, Data &data) {
 
     in_file >> str >> place_space.len_x >> place_space.len_y >> place_space.len_z;
 
-    Block &space = data.place_space.space;
-    Point &space_loc = data.place_space.space.loc;
-    Corners &space_corners = data.place_space.space.corners;
+    // Block &space = data.place_space;
+    Point &space_loc = data.place_space.loc;
+    Corners &space_corners = data.place_space.corners;
     // opposite corners
     // space.corners.nnp = Point(space_loc.x, space_loc.y, space_loc.z + space.len_z);
     // space.corners.npn = Point(space_loc.x, space_loc.y + space.len_y, space_loc.z);
     // space.corners.pnn = Point(space_loc.x + space.len_x, space_loc.y, space_loc.z);
     // space.corners.ppp = Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z + space.len_z);
-    space.corners.opposite_corners.emplace("nnp", Point(space_loc.x, space_loc.y, space_loc.z + space.len_z));
-    space.corners.opposite_corners.emplace("npn", Point(space_loc.x, space_loc.y + space.len_y, space_loc.z));
-    space.corners.opposite_corners.emplace("pnn", Point(space_loc.x + space.len_x, space_loc.y, space_loc.z));
-    space.corners.opposite_corners.emplace("ppp", Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z + space.len_z));
+    space_corners.opposite_corners.emplace("nnp", Point(space_loc.x, space_loc.y, space_loc.z + place_space.len_z));
+    space_corners.opposite_corners.emplace("npn", Point(space_loc.x, space_loc.y + place_space.len_y, space_loc.z));
+    space_corners.opposite_corners.emplace("pnn", Point(space_loc.x + place_space.len_x, space_loc.y, space_loc.z));
+    space_corners.opposite_corners.emplace("ppp", Point(space_loc.x + place_space.len_x, space_loc.y + place_space.len_y, space_loc.z + place_space.len_z));
     // linking corners
     // space.corners.nnn = Point(space_loc.x, space_loc.y, space_loc.z);
     // space.corners.npp = Point(space_loc.x, space_loc.y + space.len_y, space_loc.z + space.len_z);
     // space.corners.pnp = Point(space_loc.x + space.len_x, space_loc.y, space_loc.z + space.len_z);
     // space.corners.ppn = Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z);
-    space.corners.linking_corners.emplace("nnn", Point(space_loc.x, space_loc.y, space_loc.z));
-    space.corners.linking_corners.emplace("npp", Point(space_loc.x, space_loc.y + space.len_y, space_loc.z + space.len_z));
-    space.corners.linking_corners.emplace("pnp", Point(space_loc.x + space.len_x, space_loc.y, space_loc.z + space.len_z));
-    space.corners.linking_corners.emplace("ppn", Point(space_loc.x + space.len_x, space_loc.y + space.len_y, space_loc.z));
+    space_corners.linking_corners.emplace("nnn", Point(space_loc.x, space_loc.y, space_loc.z));
+    space_corners.linking_corners.emplace("npp", Point(space_loc.x, space_loc.y + place_space.len_y, space_loc.z + place_space.len_z));
+    space_corners.linking_corners.emplace("pnp", Point(space_loc.x + place_space.len_x, space_loc.y, space_loc.z + place_space.len_z));
+    space_corners.linking_corners.emplace("ppn", Point(space_loc.x + place_space.len_x, space_loc.y + place_space.len_y, space_loc.z));
     std::cout << std::endl;
     
     while (!in_file.eof()) {
@@ -116,9 +116,9 @@ void Parser::print_info(Data &data) {
     std::cout << ">>>> Place Space Info: \n";
     Space &place_space = data.place_space;
     std::cout << "place unit: " << place_space.unit << std::endl;
-    std::cout << "place name: " << place_space.space.name << std::endl;
-    printf("place location: (%f, %f, %f)\n", place_space.space.loc.x, place_space.space.loc.y, place_space.space.loc.z);
-    printf("place geometry: (%f, %f, %f)\n", place_space.space.len_x, place_space.space.len_y, place_space.space.len_z);
+    std::cout << "place name: " << place_space.name << std::endl;
+    printf("place location: (%f, %f, %f)\n", place_space.loc.x, place_space.loc.y, place_space.loc.z);
+    printf("place geometry: (%f, %f, %f)\n", place_space.len_x, place_space.len_y, place_space.len_z);
 
     std::cout << "\n>>>> Blocks Info: \n";
     for (const auto &b : data.solid_blocks) {
