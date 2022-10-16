@@ -23,6 +23,10 @@ std::string CornerLink::coordi_info(auto& v) {
     return res;
 }
 
+bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
+    return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
+}
+
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
     // std::cout << "\n/===== Before sort =====/\n";
@@ -33,16 +37,40 @@ void CornerLink::get_corner_link(Data& data) {
 
     // Find neighboring corners for each block
     for (auto& b1: data.solid_blocks) {
+        // corner v in linking_corners
         for (auto& v: b1.solid.corners.linking_corners) {
+            // Find 1/8 neighboring corners of the hamming distance = 1
             for (auto& b2: data.solid_blocks) {
                 if (&b1 == &b2) continue;
                 std::cout << "b1: " << b1.solid.name << " b2: " << b2.solid.name << std::endl;
+                // corner w in opposite_corners
                 for (auto& w: b2.solid.corners.opposite_corners) {
                     std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
                     std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
                     std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
+                    if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
+                        if (data.corner_links.find(v.second) == data.corner_links.end())
+                            data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                        else {
+                            for (auto& cl: data.corner_links) {
+                                // ! TODO: still has bug
+                                if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                                    data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                            }
+                        }
+                    }
                 }
                 std::cout << std::endl;
+            }
+            // Find 1/8 neighboring corners of the hamming distance = 3
+            for (auto& b2: data.solid_blocks) {
+                if (&b1 == &b2) continue;
+                for (auto& w: b2.solid.corners.opposite_corners) {
+                    if (same_coordi(v, w) && (get_ham_dist(v, w) == 3)) {
+                        if (data.corner_links.find(v.second) == data.corner_links.end())
+                            data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                    }
+                }
             }
         }
     }
