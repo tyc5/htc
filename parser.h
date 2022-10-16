@@ -35,6 +35,11 @@ struct Block {
     double len_y;
     double len_z;
     Corners corners;
+    std::string material;
+    double emissivity[6];
+    SolidBlock() : solid(), material("") {
+        for (int i = 0; i < 6; ++i) emissivity[i] = 0;
+    }
 };
 
 // Place space
@@ -64,7 +69,8 @@ struct SolidBlock {
 class Data {
 public:
     Space place_space;
-    std::vector<SolidBlock> solid_blocks;
+    // std::vector<SolidBlock> solid_blocks;
+    std::vector<Block> blocks;
     std::multimap<Point, std::unordered_map<std::string, std::string>> corner_links;
 };
 
