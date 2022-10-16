@@ -40,7 +40,13 @@ struct Block {
 // Place space
 struct Space {
     std::string unit;
-    Block space;
+    // Block space;
+    std::string name;
+    Point loc;
+    double len_x;
+    double len_y;
+    double len_z;
+    Corners corners;
     Space() : unit(""), space() {}
     Space(std::string unit_, Block space_) : unit(unit_), space(space_) {}
 };

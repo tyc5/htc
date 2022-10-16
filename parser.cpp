@@ -14,11 +14,11 @@ void Parser::parser(std::string filename, Data &data) {
     Space &place_space = data.place_space;
     in_file >> str >> place_space.unit;
 
-    in_file >> str >> place_space.space.name;
+    in_file >> str >> place_space.name;
 
-    in_file >> str >> place_space.space.loc.x >> place_space.space.loc.y >> place_space.space.loc.z;
+    in_file >> str >> place_space.loc.x >> place_space.loc.y >> place_space.loc.z;
 
-    in_file >> str >> place_space.space.len_x >> place_space.space.len_y >> place_space.space.len_z;
+    in_file >> str >> place_space.len_x >> place_space.len_y >> place_space.len_z;
 
     Block &space = data.place_space.space;
     Point &space_loc = data.place_space.space.loc;
