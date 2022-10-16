@@ -31,6 +31,8 @@ void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
     // std::cout << "\n/===== Before sort =====/\n";
     // print_blocks(data, 0);
+
+    // Sort the st of all blocks in the given 3D mosaic floorplan
     std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare);
     // std::cout << "\n/===== After sort =====/\n";
     // print_blocks(data, 0);
@@ -54,8 +56,8 @@ void CornerLink::get_corner_link(Data& data) {
                         else {
                             for (auto& cl: data.corner_links) {
                                 // ! TODO: still has bug
-                                if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
-                                    data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                                // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                                //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
                             }
                         }
                     }
