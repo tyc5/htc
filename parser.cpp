@@ -44,32 +44,32 @@ void Parser::parser(std::string filename, Data &data) {
     std::cout << std::endl;
     
     while (!in_file.eof()) {
-        // Solid Block
-        SolidBlock solid_block;
+        // Block
+        Block block;
         // name
-        in_file >> str >> solid_block.solid.name;
+        in_file >> str >> block.name;
         // location
-        in_file >> str >> solid_block.solid.loc.x >> solid_block.solid.loc.y >> solid_block.solid.loc.z;
+        in_file >> str >> block.loc.x >> block.loc.y >> block.loc.z;
         // geometry
-        in_file >> str >> solid_block.solid.len_x >> solid_block.solid.len_y >> solid_block.solid.len_z;
+        in_file >> str >> block.len_x >> block.len_y >> block.len_z;
         // material
-        in_file >> str >> solid_block.material;
-        if (solid_block.material == "Power") break;
+        in_file >> str >> block.material;
+        if (block.material == "Power") break;
         // emissivity
         in_file >> str;
         for (int i = 0; i < 6; ++i) {
-            in_file >> solid_block.emissivity[i];
+            in_file >> block.emissivity[i];
         }
         in_file >> str;
 
         // corners
-        double &x = solid_block.solid.loc.x;
-        double &y = solid_block.solid.loc.y;
-        double &z = solid_block.solid.loc.z;
-        double &len_x = solid_block.solid.len_x;
-        double &len_y = solid_block.solid.len_y;
-        double &len_z = solid_block.solid.len_z;
-        Corners &corners = solid_block.solid.corners;
+        double &x = block.loc.x;
+        double &y = block.loc.y;
+        double &z = block.loc.z;
+        double &len_x = block.len_x;
+        double &len_y = block.len_y;
+        double &len_z = block.len_z;
+        Corners &corners = block.corners;
         // opposite corners
         // corners.nnp = Point(x, y, z + len_z);
         // corners.npn = Point(x, y + len_y, z);
@@ -90,7 +90,7 @@ void Parser::parser(std::string filename, Data &data) {
         corners.linking_corners.emplace("pnp", Point(x + len_x, y, z + len_z));
         corners.linking_corners.emplace("ppn", Point(x + len_x, y + len_y, z));
 
-        data.solid_blocks.emplace_back(solid_block);
+        data.blocks.emplace_back(block);
     }
     /*
     for (const auto& b: data.solid_blocks) {
@@ -121,15 +121,15 @@ void Parser::print_info(Data &data) {
     printf("place geometry: (%f, %f, %f)\n", place_space.len_x, place_space.len_y, place_space.len_z);
 
     std::cout << "\n>>>> Blocks Info: \n";
-    for (const auto &b : data.solid_blocks) {
-        double x = b.solid.loc.x;
-        double y = b.solid.loc.y;
-        double z = b.solid.loc.z;
-        double len_x = b.solid.len_x;
-        double len_y = b.solid.len_y;
-        double len_z = b.solid.len_z;
-        Corners corners = b.solid.corners;
-        std::cout << "\nBlock: " << b.solid.name << std::endl;
+    for (const auto &b : data.blocks) {
+        double x = b.loc.x;
+        double y = b.loc.y;
+        double z = b.loc.z;
+        double len_x = b.len_x;
+        double len_y = b.len_y;
+        double len_z = b.len_z;
+        Corners corners = b.corners;
+        std::cout << "\nBlock: " << b.name << std::endl;
         // printf("---: (%f, %f, %f)\n", x, y, z);
         // printf("+--: (%f, %f, %f)\n", x + len_x, y, z);
         // printf("-+-: (%f, %f, %f)\n", x, y + len_y, z);
