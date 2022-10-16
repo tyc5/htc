@@ -37,7 +37,7 @@ struct Block {
     Corners corners;
     std::string material;
     double emissivity[6];
-    SolidBlock() : solid(), material("") {
+    Block() : name(""), loc(), len_x(), len_y(), len_z(), corners(), material("") {
         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
     }
 };
@@ -57,14 +57,14 @@ struct Space {
         : unit(unit_), name(name_), loc(loc_), len_x(len_x_), len_y(len_y_), len_z(len_z_), corners(corners_) {}
 };
 
-struct SolidBlock {
-    Block solid;
-    std::string material;
-    double emissivity[6];
-    SolidBlock() : solid(), material("") {
-        for (int i = 0; i < 6; ++i) emissivity[i] = 0;
-    }
-};
+// struct SolidBlock {
+//     Block solid;
+//     std::string material;
+//     double emissivity[6];
+//     SolidBlock() : solid(), material("") {
+//         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
+//     }
+// };
 
 class Data {
 public:
