@@ -20,7 +20,6 @@ void Parser::parser(std::string filename, Data &data) {
 
     in_file >> str >> place_space.len_x >> place_space.len_y >> place_space.len_z;
 
-    // Block &space = data.place_space;
     Point &space_loc = data.place_space.loc;
     Corners &space_corners = data.place_space.corners;
     // opposite corners
