@@ -64,25 +64,39 @@ public:
     Corners corners;
     std::string material;
     double emissivity[6];
-    
+
     Block() : name(""), loc(), len_x(), len_y(), len_z(), corners(), material("") {
         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
     }
 };
 
 // Place space
-struct Space {
+// struct Space {
+//     std::string unit;
+//     // Block space;
+//     std::string name;
+//     Point loc;
+//     double len_x;
+//     double len_y;
+//     double len_z;
+//     Corners corners;
+//     Space() : unit(""), loc(), len_x(), len_y(), len_z(), corners() {}
+//     // Space(std::string unit_, std::string name_, Point loc_, double len_x_, double len_y_, double len_z_, Corners corners_)
+//     //     : unit(unit_), name(name_), loc(loc_), len_x(len_x_), len_y(len_y_), len_z(len_z_), corners(corners_) {}
+// };
+
+class Space {
+public:
     std::string unit;
-    // Block space;
     std::string name;
     Point loc;
     double len_x;
     double len_y;
     double len_z;
     Corners corners;
-    Space() : unit(""), loc(), len_x(), len_y(), len_z(), corners() {}
-    // Space(std::string unit_, std::string name_, Point loc_, double len_x_, double len_y_, double len_z_, Corners corners_)
-    //     : unit(unit_), name(name_), loc(loc_), len_x(len_x_), len_y(len_y_), len_z(len_z_), corners(corners_) {}
+    Space() : unit(""), name(), loc(), len_x(), len_y(), len_z(), corners() {}
+    Space(std::string unit_, std::string name_, Point loc_, double len_x_, double len_y_, double len_z_, Corners corners_)
+        : unit(unit_), name(name_), loc(loc_), len_x(len_x_), len_y(len_y_), len_z(len_z_), corners(corners_) {}
 };
 
 // struct SolidBlock {
