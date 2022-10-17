@@ -23,9 +23,9 @@ std::string CornerLink::coordi_info(auto& v) {
     return res;
 }
 
-bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
-    return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
-}
+// bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
+//     return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
+// }
 
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";

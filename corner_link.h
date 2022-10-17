@@ -12,7 +12,7 @@ public:
     bool same_coordi(auto& v, auto& w);
     std::string coordi_info(auto& v);
     int get_ham_dist(auto& v, auto& w);
-    bool corner_pair_exist(auto& cp1, auto& cp2);
+    // boomal corner_pair_exist(auto& cp1, auto& cp2);
 };
 
 #endif
