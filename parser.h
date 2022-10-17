@@ -9,12 +9,24 @@
 #include <unordered_map>
 #include <vector>
 
-struct Point {
+// struct Point {
+//     double x;
+//     double y;
+//     double z;
+//     Point() : x(0), y(0), z(0) {}
+//     Point(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
+// };
+
+class Point {
+public:
     double x;
     double y;
     double z;
     Point() : x(0), y(0), z(0) {}
     Point(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
+    bool operator==(const Point& rhs) {
+        return ((x == rhs.x) && (y == rhs.y) && (z == rhs.z));
+    }
 };
 
 struct Corners {
