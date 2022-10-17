@@ -27,6 +27,13 @@ public:
     bool operator==(const Point& rhs) {
         return ((x == rhs.x) && (y == rhs.y) && (z == rhs.z));
     }
+    bool operator<(const Point& rhs) {
+        return (
+            (x < rhs.x) ||
+            ((x == rhs.x) && (y < rhs.y)) ||
+            ((y == rhs.y) && (z < rhs.z))
+        );
+    }
 };
 
 struct Corners {
