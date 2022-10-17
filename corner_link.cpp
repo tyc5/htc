@@ -1,8 +1,8 @@
 #include "corner_link.h"
 
-bool compare(SolidBlock& b1, SolidBlock& b2) {
-    Point &loc_b1 = b1.solid.loc;
-    Point &loc_b2 = b2.solid.loc;
+bool compare(Block& b1, Block& b2) {
+    Point &loc_b1 = b1.loc;
+    Point &loc_b2 = b2.loc;
     return (loc_b1.x < loc_b2.x) ||
            ((loc_b1.x == loc_b2.x) && (loc_b1.y < loc_b2.y)) ||
            ((loc_b1.y == loc_b2.y) && (loc_b1.z < loc_b2.z));
@@ -33,41 +33,41 @@ void CornerLink::get_corner_link(Data& data) {
     // print_blocks(data, 0);
 
     // Sort the st of all blocks in the given 3D mosaic floorplan
-    std::sort(data.solid_blocks.begin(), data.solid_blocks.end(), compare);
+    std::sort(data.blocks.begin(), data.blocks.end(), compare);
     // std::cout << "\n/===== After sort =====/\n";
     // print_blocks(data, 0);
 
     // Find neighboring corners for each block
-    for (auto& b1: data.solid_blocks) {
+    for (auto& b1: data.blocks) {
         // corner v in linking_corners
-        for (auto& v: b1.solid.corners.linking_corners) {
+        for (auto& v: b1.corners.linking_corners) {
             // Find 1/8 neighboring corners of the hamming distance = 1
-            for (auto& b2: data.solid_blocks) {
+            for (auto& b2: data.blocks) {
                 if (&b1 == &b2) continue;
-                std::cout << "b1: " << b1.solid.name << " b2: " << b2.solid.name << std::endl;
+                std::cout << "b1: " << b1.name << " b2: " << b2.name << std::endl;
                 // corner w in opposite_corners
-                for (auto& w: b2.solid.corners.opposite_corners) {
+                for (auto& w: b2.corners.opposite_corners) {
                     std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
                     std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
                     std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
-                    if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
-                        if (data.corner_links.find(v.second) == data.corner_links.end())
-                            data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                        else {
-                            for (auto& cl: data.corner_links) {
-                                // ! TODO: still has bug
-                                // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
-                                //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                            }
-                        }
-                    }
+                    // if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
+                    //     if (data.corner_links.find(v.second) == data.corner_links.end())
+                    //         data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                    //     else {
+                    //         for (auto& cl: data.corner_links) {
+                    //             // ! TODO: still has bug
+                    //             // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                    //             //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                    //         }
+                    //     }
+                    // }
                 }
                 std::cout << std::endl;
             }
             // Find 1/8 neighboring corners of the hamming distance = 3
-            for (auto& b2: data.solid_blocks) {
+            for (auto& b2: data.blocks) {
                 if (&b1 == &b2) continue;
-                for (auto& w: b2.solid.corners.opposite_corners) {
+                for (auto& w: b2.corners.opposite_corners) {
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 3)) {
                         if (data.corner_links.find(v.second) == data.corner_links.end())
                             data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
@@ -88,15 +88,15 @@ int CornerLink::get_ham_dist(auto& v, auto& w) {
 }
 
 void CornerLink::print_blocks(Data& data, int mode) {
-    for (const auto& b: data.solid_blocks) {
-        double x = b.solid.loc.x;
-        double y = b.solid.loc.y;
-        double z = b.solid.loc.z;
-        double len_x = b.solid.len_x;
-        double len_y = b.solid.len_y;
-        double len_z = b.solid.len_z;
-        // Corners corners = b.solid.corners;
-        std::cout << "\nBlock: " << b.solid.name << std::endl;
+    for (const auto& b: data.blocks) {
+        double x = b.loc.x;
+        double y = b.loc.y;
+        double z = b.loc.z;
+        double len_x = b.len_x;
+        double len_y = b.len_y;
+        double len_z = b.len_z;
+        // Corners corners = b.corners;
+        std::cout << "\nBlock: " << b.name << std::endl;
         if (mode) {
             printf("---: (%f, %f, %f)\n", x, y, z);
             printf("+--: (%f, %f, %f)\n", x + len_x, y, z);
