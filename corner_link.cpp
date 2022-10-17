@@ -9,9 +9,11 @@ bool compare(Block& b1, Block& b2) {
 }
 
 bool CornerLink::same_coordi(auto& v, auto& w) {
-    return ((v.second.x == w.second.x) &&
-            (v.second.y == w.second.y) &&
-            (v.second.z == w.second.z));
+    // return ((v.second.x == w.second.x) &&
+    //         (v.second.y == w.second.y) &&
+    //         (v.second.z == w.second.z));
+    
+    return (v.second == w.second);
 }
 
 std::string CornerLink::coordi_info(auto& v) {
@@ -69,8 +71,8 @@ void CornerLink::get_corner_link(Data& data) {
                 if (&b1 == &b2) continue;
                 for (auto& w: b2.corners.opposite_corners) {
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 3)) {
-                        if (data.corner_links.find(v.second) == data.corner_links.end())
-                            data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                        // if (data.corner_links.find(v.second) == data.corner_links.end())
+                        //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
                     }
                 }
             }
