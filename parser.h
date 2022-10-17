@@ -40,7 +40,22 @@ struct Corners {
     std::unordered_map<std::string, Point> linking_corners;
 };
 
-struct Block {
+// struct Block {
+//     std::string name;
+//     Point loc;
+//     double len_x;
+//     double len_y;
+//     double len_z;
+//     Corners corners;
+//     std::string material;
+//     double emissivity[6];
+//     Block() : name(""), loc(), len_x(), len_y(), len_z(), corners(), material("") {
+//         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
+//     }
+// };
+
+class Block {
+public:
     std::string name;
     Point loc;
     double len_x;
@@ -49,6 +64,7 @@ struct Block {
     Corners corners;
     std::string material;
     double emissivity[6];
+    
     Block() : name(""), loc(), len_x(), len_y(), len_z(), corners(), material("") {
         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
     }
