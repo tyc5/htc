@@ -3,31 +3,31 @@
 bool compare(Block& b1, Block& b2) {
     Point &loc_b1 = b1.loc;
     Point &loc_b2 = b2.loc;
-    return (loc_b1.x < loc_b2.x) ||
-           ((loc_b1.x == loc_b2.x) && (loc_b1.y < loc_b2.y)) ||
-           ((loc_b1.y == loc_b2.y) && (loc_b1.z < loc_b2.z));
+    // return (loc_b1.x < loc_b2.x) ||
+    //        ((loc_b1.x == loc_b2.x) && (loc_b1.y < loc_b2.y)) ||
+    //        ((loc_b1.y == loc_b2.y) && (loc_b1.z < loc_b2.z));
+    return loc_b1 < loc_b2;
 }
 
-bool CornerLink::same_coordi(auto& v, auto& w) {
-    // return ((v.second.x == w.second.x) &&
-    //         (v.second.y == w.second.y) &&
-    //         (v.second.z == w.second.z));
-    
-    return (v.second == w.second);
+bool CornerLink::same_coordi(std::pair<const std::string, Point>& v,
+                             std::pair<const std::string, Point>& w) {
+  // return ((v.second.x == w.second.x) &&
+  //         (v.second.y == w.second.y) &&
+  //         (v.second.z == w.second.z));
+
+  return (v.second == w.second);
 }
 
-std::string CornerLink::coordi_info(auto& v) {
-    std::string res = "";
-    res = v.first + ":(" +
-          std::to_string(v.second.x) + ", " +
-          std::to_string(v.second.y) + ", " +
-          std::to_string(v.second.z) + ")";
-    return res;
+std::string CornerLink::coordi_info(std::pair<const std::string, Point>& v) {
+  std::string res = "";
+  res = v.first + ":(" + std::to_string(v.second.x) + ", " +
+        std::to_string(v.second.y) + ", " + std::to_string(v.second.z) + ")";
+  return res;
 }
 
-// bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
-//     return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
-// }
+bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
+    return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
+}
 
 void CornerLink::get_corner_link(Data& data) {
     std::cout << "\n>> Corner Link...\n";
@@ -41,12 +41,15 @@ void CornerLink::get_corner_link(Data& data) {
 
     // Find neighboring corners for each block
     for (auto& b1: data.blocks) {
+
         // corner v in linking_corners
         for (auto& v: b1.corners.linking_corners) {
+
             // Find 1/8 neighboring corners of the hamming distance = 1
             for (auto& b2: data.blocks) {
                 if (&b1 == &b2) continue;
-                std::cout << "b1: " << b1.name << " b2: " << b2.name << std::endl;
+                // std::cout << "b1: " << b1.name << " b2: " << b2.name << std::endl;
+                
                 // corner w in opposite_corners
                 for (auto& w: b2.corners.opposite_corners) {
                     std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
@@ -66,6 +69,7 @@ void CornerLink::get_corner_link(Data& data) {
                 }
                 std::cout << std::endl;
             }
+
             // Find 1/8 neighboring corners of the hamming distance = 3
             for (auto& b2: data.blocks) {
                 if (&b1 == &b2) continue;
@@ -81,12 +85,14 @@ void CornerLink::get_corner_link(Data& data) {
     
 }
 
-int CornerLink::get_ham_dist(auto& v, auto& w) {
-    int ham_dist = 0;
-    for (int i = 0; i < v.first.size(); ++i)
-        if (v.first[i] != w.first[i]) ham_dist++;
+int CornerLink::get_ham_dist(std::pair<const std::string, Point> &v,
+                             std::pair<const std::string, Point> &w) {
+  int ham_dist = 0;
+  for (int i = 0; i < v.first.size(); ++i)
+    if (v.first[i] != w.first[i])
+      ham_dist++;
 
-    return ham_dist;
+  return ham_dist;
 }
 
 void CornerLink::print_blocks(Data& data, int mode) {
