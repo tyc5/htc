@@ -24,15 +24,21 @@ public:
     double z;
     Point() : x(0), y(0), z(0) {}
     Point(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
-    bool operator==(const Point& rhs) {
+    bool operator==(const Point& rhs) const {
         return ((x == rhs.x) && (y == rhs.y) && (z == rhs.z));
     }
-    bool operator<(const Point& rhs) {
+    bool operator<(const Point& rhs) const {
         return (
             (x < rhs.x) ||
             ((x == rhs.x) && (y < rhs.y)) ||
             ((y == rhs.y) && (z < rhs.z))
         );
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Point& point) {
+        os.precision(5);
+        os << std::fixed;
+        os << "(" << point.x << ", " << point.y << ", " << point.z << ")";
+        return os;
     }
 };
 
