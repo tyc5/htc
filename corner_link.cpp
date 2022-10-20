@@ -9,8 +9,8 @@ bool compare(Block& b1, Block& b2) {
     return loc_b1 < loc_b2;
 }
 
-bool CornerLink::same_coordi(std::pair<const std::string, Point>& v,
-                             std::pair<const std::string, Point>& w) {
+bool CornerLink::same_coordi(const std::pair<const std::string, Point>& v,
+                             const std::pair<const std::string, Point>& w) {
   // return ((v.second.x == w.second.x) &&
   //         (v.second.y == w.second.y) &&
   //         (v.second.z == w.second.z));
@@ -52,20 +52,22 @@ void CornerLink::get_corner_link(Data& data) {
                 
                 // corner w in opposite_corners
                 for (auto& w: b2.corners.opposite_corners) {
-                    std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
-                    std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
-                    std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
-                    // if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
-                    //     if (data.corner_links.find(v.second) == data.corner_links.end())
-                    //         data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                    //     else {
-                    //         for (auto& cl: data.corner_links) {
-                    //             // ! TODO: still has bug
-                    //             // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
-                    //             //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                    //         }
-                    //     }
-                    // }
+                    // std::cout << "v: " << coordi_info(v) << " w: " << coordi_info(w) << std::endl;
+                    // std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
+                    // std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
+                    if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
+                        if (data.corner_links.find(v.second) == data.corner_links.end()) {
+                            // std::cout << "corner_link exist\n";
+                            // data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                        }
+                        else {
+                            for (auto& cl: data.corner_links) {
+                                // ! TODO: still has bug
+                                // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                                //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                            }
+                        }
+                    }
                 }
                 std::cout << std::endl;
             }
