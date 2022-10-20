@@ -156,16 +156,24 @@ void Parser::print_info(Data &data) {
         // std::cout << "\nfrom unordered_map\n";
         // opposite corners
         std::cout << "\nopposite corners: \n";
-        printf("nnp: (%f, %f, %f)\n", corners.opposite_corners["nnp"].x, corners.opposite_corners["nnp"].y, corners.opposite_corners["nnp"].z);
-        printf("npn: (%f, %f, %f)\n", corners.opposite_corners["npn"].x, corners.opposite_corners["npn"].y, corners.opposite_corners["npn"].z);
-        printf("pnn: (%f, %f, %f)\n", corners.opposite_corners["pnn"].x, corners.opposite_corners["pnn"].y, corners.opposite_corners["pnn"].z);
-        printf("ppp: (%f, %f, %f)\n", corners.opposite_corners["ppp"].x, corners.opposite_corners["ppp"].y, corners.opposite_corners["ppp"].z);
+        std::cout << "nnp: " << corners.opposite_corners["nnp"] << std::endl;
+        std::cout << "npn: " << corners.opposite_corners["npn"] << std::endl;
+        std::cout << "pnn: " << corners.opposite_corners["pnn"] << std::endl;
+        std::cout << "ppp: " << corners.opposite_corners["ppp"] << std::endl;
+        // printf("nnp: (%f, %f, %f)\n", corners.opposite_corners["nnp"].x, corners.opposite_corners["nnp"].y, corners.opposite_corners["nnp"].z);
+        // printf("npn: (%f, %f, %f)\n", corners.opposite_corners["npn"].x, corners.opposite_corners["npn"].y, corners.opposite_corners["npn"].z);
+        // printf("pnn: (%f, %f, %f)\n", corners.opposite_corners["pnn"].x, corners.opposite_corners["pnn"].y, corners.opposite_corners["pnn"].z);
+        // printf("ppp: (%f, %f, %f)\n", corners.opposite_corners["ppp"].x, corners.opposite_corners["ppp"].y, corners.opposite_corners["ppp"].z);
 
         // linking corners
         std::cout << "\nlinking corners: \n";
-        printf("nnn: (%f, %f, %f)\n", corners.linking_corners["nnn"].x, corners.linking_corners["nnn"].y, corners.linking_corners["nnn"].z);
-        printf("npp: (%f, %f, %f)\n", corners.linking_corners["npp"].x, corners.linking_corners["npp"].y, corners.linking_corners["npp"].z);
-        printf("pnp: (%f, %f, %f)\n", corners.linking_corners["pnp"].x, corners.linking_corners["pnp"].y, corners.linking_corners["pnp"].z);
-        printf("ppn: (%f, %f, %f)\n", corners.linking_corners["ppn"].x, corners.linking_corners["ppn"].y, corners.linking_corners["ppn"].z);
+        std::cout << "nnn: " << corners.linking_corners["nnn"] << std::endl;
+        std::cout << "npp: " << corners.linking_corners["npp"] << std::endl;
+        std::cout << "pnp: " << corners.linking_corners["pnp"] << std::endl;
+        std::cout << "ppn: " << corners.linking_corners["ppn"] << std::endl;
+        // printf("nnn: (%f, %f, %f)\n", corners.linking_corners["nnn"].x, corners.linking_corners["nnn"].y, corners.linking_corners["nnn"].z);
+        // printf("npp: (%f, %f, %f)\n", corners.linking_corners["npp"].x, corners.linking_corners["npp"].y, corners.linking_corners["npp"].z);
+        // printf("pnp: (%f, %f, %f)\n", corners.linking_corners["pnp"].x, corners.linking_corners["pnp"].y, corners.linking_corners["pnp"].z);
+        // printf("ppn: (%f, %f, %f)\n", corners.linking_corners["ppn"].x, corners.linking_corners["ppn"].y, corners.linking_corners["ppn"].z);
     }
 }
