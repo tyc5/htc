@@ -63,7 +63,7 @@ void CornerLink::get_corner_link(Data& data) {
                         else {
                             for (auto& cl: data.corner_links) {
                                 // ! TODO: still has bug
-                                // if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                                if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
                                 //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
                             }
                         }
@@ -89,12 +89,11 @@ void CornerLink::get_corner_link(Data& data) {
 
 int CornerLink::get_ham_dist(std::pair<const std::string, Point> &v,
                              std::pair<const std::string, Point> &w) {
-  int ham_dist = 0;
-  for (int i = 0; i < v.first.size(); ++i)
-    if (v.first[i] != w.first[i])
-      ham_dist++;
+    int ham_dist = 0;
+    for (int i = 0; i < v.first.size(); ++i)
+        if (v.first[i] != w.first[i]) ham_dist++;
 
-  return ham_dist;
+    return ham_dist;
 }
 
 void CornerLink::print_blocks(Data& data, int mode) {

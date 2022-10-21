@@ -2,8 +2,11 @@
 #define _CORNER_LINK_H
 
 #include <algorithm>
+#include <utility>
 
 #include "parser.h"
+
+// typedef std::pair<typename T1, typename T2>
 
 class CornerLink {
 public:
