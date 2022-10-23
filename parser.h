@@ -81,6 +81,10 @@ public:
     Block() : name(""), loc(), len_x(), len_y(), len_z(), corners(), material("") {
         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
     }
+
+    bool operator==(const Block &rhs) const {
+        return (name == rhs.name);
+    }
 };
 
 // Place space
