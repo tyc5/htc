@@ -1,4 +1,5 @@
 #include "corner_link.h"
+#include <type_traits>
 
 bool compare(Block& b1, Block& b2) {
     Point &loc_b1 = b1.loc;
@@ -9,24 +10,28 @@ bool compare(Block& b1, Block& b2) {
     return loc_b1 < loc_b2;
 }
 
-bool CornerLink::same_coordi(const std::pair<const std::string, Point>& v,
-                             const std::pair<const std::string, Point>& w) {
+bool CornerLink::same_coordi(std::pair<const std::string, Point>& v,
+                             std::pair<const std::string, Point>& w) {
   // return ((v.second.x == w.second.x) &&
   //         (v.second.y == w.second.y) &&
   //         (v.second.z == w.second.z));
 
-  return (v.second == w.second);
+    return (v.second == w.second);
 }
 
 std::string CornerLink::coordi_info(std::pair<const std::string, Point>& v) {
-  std::string res = "";
-  res = v.first + ":(" + std::to_string(v.second.x) + ", " +
+    std::string res = "";
+    res = v.first + ":(" + std::to_string(v.second.x) + ", " +
         std::to_string(v.second.y) + ", " + std::to_string(v.second.z) + ")";
-  return res;
+    return res;
 }
 
-bool CornerLink::corner_pair_exist(auto& cp1, auto& cp2) {
-    return ((cp1.first == cp2.first) && (cp1.second == cp2.second));
+bool CornerLink::corner_pair_exist(corner_pair& cp1, corner_pair& cp2) {
+    if (((cp1.first.first == cp2.first.first) && (cp1.first.second == cp2.first.second)) &&
+        ((cp1.second.first == cp2.second.first) && (cp1.second.second == cp2.second.second)))
+        return true;
+    
+    return false;
 }
 
 void CornerLink::get_corner_link(Data& data) {
