@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 // struct Point {
@@ -123,17 +124,21 @@ public:
 //     }
 // };
 
+typedef std::pair<Block, std::string> corner;
+typedef std::pair<corner, corner> corner_pair;
+
 class Data {
 public:
     Space place_space;
     // std::vector<SolidBlock> solid_blocks;
     std::vector<Block> blocks;
-    std::multimap<Point, std::unordered_map<std::string, std::string>> corner_links;
+    // std::multimap<Point, std::unordered_map<std::string, std::string> > corner_links;
+    std::multimap<Point, corner_pair> corner_links;
 };
 
 class Parser {
 public:
-    void parser(std::string filename, Data& data);
+    void parser(const std::string& filename, Data& data);
     void print_info(Data& data);
 };
 
