@@ -1,6 +1,6 @@
 #include "parser.h"
 
-void Parser::parser(std::string filename, Data &data) {
+void Parser::parser(const std::string& filename, Data &data) {
     std::cout << ">> Parsing...\n";
     std::ifstream in_file;
     in_file.open(filename, std::ios::in);
