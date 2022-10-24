@@ -2,12 +2,8 @@
 #define _CORNER_LINK_H
 
 #include <algorithm>
-#include <utility>
 
 #include "parser.h"
-
-typedef std::pair<Block, std::string> corner;
-typedef std::pair<corner, corner> corner_pair;
 
 class CornerLink {
 public:
