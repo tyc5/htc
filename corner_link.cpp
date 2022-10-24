@@ -28,8 +28,9 @@ std::string CornerLink::coordi_info(std::pair<const std::string, Point>& v) {
 
 bool CornerLink::corner_pair_exist(corner_pair& cp1, corner_pair& cp2) {
     if (((cp1.first.first == cp2.first.first) && (cp1.first.second == cp2.first.second)) &&
-        ((cp1.second.first == cp2.second.first) && (cp1.second.second == cp2.second.second)))
+        ((cp1.second.first == cp2.second.first) && (cp1.second.second == cp2.second.second))) {
         return true;
+    }
     
     return false;
 }
@@ -62,16 +63,16 @@ void CornerLink::get_corner_link(Data& data) {
                     // std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
                         if (data.corner_links.find(v.second) == data.corner_links.end()) {
-                            // std::cout << "corner_link exist\n";
+                            std::cout << "corner_link exist\n";
                             // data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
                         }
-                        else {
-                            for (auto& cl: data.corner_links) {
-                                // ! TODO: still has bug
-                                if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
-                                //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                            }
-                        }
+                        // else {
+                        //     for (auto& cl: data.corner_links) {
+                        //         // ! TODO: still has bug
+                        //         if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
+                        //         //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                        //     }
+                        // }
                     }
                 }
                 std::cout << std::endl;
