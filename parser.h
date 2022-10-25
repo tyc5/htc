@@ -126,6 +126,7 @@ public:
 
 typedef std::pair<Block, std::string> corner;
 typedef std::pair<corner, corner> corner_pair;
+typedef std::pair<Point, corner_pair> corner_link;
 
 class Data {
 public:
