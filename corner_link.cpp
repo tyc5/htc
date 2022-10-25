@@ -1,5 +1,7 @@
 #include "corner_link.h"
+#include "parser.h"
 #include <type_traits>
+#include <utility>
 
 bool compare(Block& b1, Block& b2) {
     Point &loc_b1 = b1.loc;
@@ -64,7 +66,11 @@ void CornerLink::get_corner_link(Data& data) {
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
                         if (data.corner_links.find(v.second) == data.corner_links.end()) {
                             std::cout << "corner_link exist\n";
-                            // data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                            corner corner1(std::make_pair(b1, v.first));
+                            corner corner2(std::make_pair(b2, w.first));
+                            corner_pair cp(corner1, corner2);
+                            corner_link cl(v.second, cp);
+                            data.corner_links.emplace(cl);
                         }
                         // else {
                         //     for (auto& cl: data.corner_links) {
@@ -91,6 +97,15 @@ void CornerLink::get_corner_link(Data& data) {
         }
     }
     
+    for (auto& cl: data.corner_links) {
+        auto& corner1 = cl.second.first;
+        auto& corner2 = cl.second.second;
+        std::cout << cl.first << std::endl;
+        std::cout << " -> " << corner1.first.name << ": " << corner1.second << std::endl;
+        std::cout << " -> " << corner2.first.name << ": " << corner2.second << std::endl;
+        std::cout << std::endl;
+    }
+
 }
 
 int CornerLink::get_ham_dist(std::pair<const std::string, Point> &v,
