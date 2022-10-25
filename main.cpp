@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
     parser.parser(argv[1], data);
     parser.print_info(data);
-    // corner_link.get_corner_link(data);
+    corner_link.get_corner_link(data);
 
     time_t end = clock();
     float t_used = (float)(end - start) / CLOCKS_PER_SEC;
