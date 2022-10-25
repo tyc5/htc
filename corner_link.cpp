@@ -64,21 +64,22 @@ void CornerLink::get_corner_link(Data& data) {
                     // std::cout << "ham_dis: " << get_ham_dist(v, w) << std::endl;
                     // std::cout << "same coordi: " << same_coordi(v, w) << std::endl;
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 1)) {
+                        corner corner1(std::make_pair(b1, v.first));
+                        corner corner2(std::make_pair(b2, w.first));
+                        corner_pair cp(corner1, corner2);
+
                         if (data.corner_links.find(v.second) == data.corner_links.end()) {
                             std::cout << "corner_link exist\n";
-                            corner corner1(std::make_pair(b1, v.first));
-                            corner corner2(std::make_pair(b2, w.first));
-                            corner_pair cp(corner1, corner2);
                             corner_link cl(v.second, cp);
                             data.corner_links.emplace(cl);
                         }
-                        // else {
-                        //     for (auto& cl: data.corner_links) {
-                        //         // ! TODO: still has bug
-                        //         if (corner_pair_exist(cl.second, make_pair(v.first, w.first)))
-                        //         //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
-                        //     }
-                        // }
+                        else {
+                            for (auto& cl: data.corner_links) {
+                                // ! TODO: still has bug
+                                if (corner_pair_exist(cl.second, cp))
+                                    data.corner_links.emplace(make_pair(v.second, cp));
+                            }
+                        }
                     }
                 }
                 std::cout << std::endl;
@@ -87,10 +88,25 @@ void CornerLink::get_corner_link(Data& data) {
             // Find 1/8 neighboring corners of the hamming distance = 3
             for (auto& b2: data.blocks) {
                 if (&b1 == &b2) continue;
+                
                 for (auto& w: b2.corners.opposite_corners) {
                     if (same_coordi(v, w) && (get_ham_dist(v, w) == 3)) {
-                        // if (data.corner_links.find(v.second) == data.corner_links.end())
-                        //     data.corner_links.emplace(make_pair(v.second, make_pair(v.first, w.first)));
+                        corner corner1(std::make_pair(b1, v.first));
+                        corner corner2(std::make_pair(b2, w.first));
+                        corner_pair cp(corner1, corner2);
+
+                        if (data.corner_links.find(v.second) == data.corner_links.end()) {
+                            std::cout << "corner_link exist\n";
+                            corner_link cl(v.second, cp);
+                            data.corner_links.emplace(cl);
+                        }
+                        else {
+                            for (auto& cl: data.corner_links) {
+                                // ! TODO: still has bug
+                                if (corner_pair_exist(cl.second, cp))
+                                    data.corner_links.emplace(make_pair(v.second, cp));
+                            }
+                        }
                     }
                 }
             }
