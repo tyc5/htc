@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <set>
 
 // struct Point {
 //     double x;
@@ -135,7 +136,7 @@ public:
     std::vector<Block> blocks;
     // std::multimap<Point, std::unordered_map<std::string, std::string> > corner_links;
     std::multimap<Point, corner_pair> corner_links;
-    std::vector<std::vector<double>> stitching_planes;
+    std::vector<std::set<double>> stitching_planes;
 };
 
 class Parser {
