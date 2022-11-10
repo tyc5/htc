@@ -110,7 +110,7 @@ public:
     double len_y;
     double len_z;
     Corners corners;
-    Space() : unit(""), name(), loc(), len_x(), len_y(), len_z(), corners() {}
+    Space() : unit(""), name(""), loc(), len_x(), len_y(), len_z(), corners() {}
     Space(const std::string& unit_, const std::string& name_, Point loc_, double len_x_, double len_y_, double len_z_, Corners corners_)
         : unit(unit_), name(name_), loc(loc_), len_x(len_x_), len_y(len_y_), len_z(len_z_), corners(corners_) {}
 };
@@ -135,7 +135,7 @@ public:
     std::vector<Block> blocks;
     // std::multimap<Point, std::unordered_map<std::string, std::string> > corner_links;
     std::multimap<Point, corner_pair> corner_links;
-    std::unordered_map<std::string, std::vector<double>> stitching_planes;
+    std::vector<std::vector<double>> stitching_planes;
 };
 
 class Parser {
