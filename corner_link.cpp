@@ -75,7 +75,6 @@ void CornerLink::get_corner_link(Data& data) {
                         }
                         else {
                             for (auto& cl: data.corner_links) {
-                                // ! TODO: still has bug
                                 if (corner_pair_exist(cl.second, cp))
                                     data.corner_links.emplace(make_pair(v.second, cp));
                             }
@@ -102,7 +101,6 @@ void CornerLink::get_corner_link(Data& data) {
                         }
                         else {
                             for (auto& cl: data.corner_links) {
-                                // ! TODO: still has bug
                                 if (corner_pair_exist(cl.second, cp))
                                     data.corner_links.emplace(make_pair(v.second, cp));
                             }
