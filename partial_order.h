@@ -18,6 +18,7 @@ public:
 class PartialOrder {
 public:
     void get_partial_order(Data& data);
+    double x_dim_overlap(Block from, Block to);
 };
 
 #endif
