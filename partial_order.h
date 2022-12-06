@@ -6,9 +6,12 @@
 
 class Graph {
 private:
+    int num_vertex;
     std::unordered_map<std::string, std::vector<Block>> adj_list;
 
 public:
+    Graph(): num_vertex(0) {};
+    Graph(int num): num_vertex(num) {};
     void add_edge_list(Block& from, Block& to);
 };
 
