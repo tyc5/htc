@@ -2,7 +2,7 @@
 #include <typeinfo>
 #include <cxxabi.h>
 
-void Graph::add_edge_list(Block& from, Block& to) {
+void Graph::add_edge_list(Block& from, Block& to, double weight) {
     std::cout << "type of from: "
               << abi::__cxa_demangle(typeid(from).name(), 0, 0, 0) << std::endl;
     std::cout << "type of to: "
@@ -11,7 +11,10 @@ void Graph::add_edge_list(Block& from, Block& to) {
     std::cout << "type of adj_list[from]: "
               << abi::__cxa_demangle(typeid(adj_list[from.name]).name(), 0, 0, 0) << std::endl;
 
+    // adjacency list
     adj_list[from.name].emplace_back(to);
+    // adjacency matrix
+    adj_matrix[&from][&to] = weight;
 }
 
 double PartialOrder::compute_overlap_area(int dim, Block from, Block to) {
@@ -80,7 +83,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
 
                         if (overlap_area != 0.0)
-                            partial_order_x.add_edge_list(cl.second.first.first, cl.second.second.first);
+                            partial_order_x.add_edge_list(cl.second.first.first, cl.second.second.first, overlap_area);
                     }
                 }
             }
@@ -103,7 +106,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
 
                         if (overlap_area != 0.0)
-                            partial_order_y.add_edge_list(cl.second.first.first, cl.second.second.first);
+                            partial_order_y.add_edge_list(cl.second.first.first, cl.second.second.first, overlap_area);
                     }
                 }
             }
@@ -126,7 +129,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
 
                         if (overlap_area != 0.0)
-                            partial_order_z.add_edge_list(cl.second.first.first, cl.second.second.first);
+                            partial_order_z.add_edge_list(cl.second.first.first, cl.second.second.first, overlap_area);
                     }
                 }
             }
