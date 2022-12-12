@@ -14,6 +14,7 @@ public:
     Graph(): num_vertex(0) {};
     Graph(int num): num_vertex(num) {};
     void add_edge_list(Block& from, Block& to, double weight);
+    void check_adjacency_matrix();
 };
 
 class PartialOrder {
