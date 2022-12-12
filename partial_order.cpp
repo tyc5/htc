@@ -78,7 +78,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
-                        
+
                         if (overlap_area != 0.0)
                             partial_order_x.add_edge_list(cl.second.first.first, cl.second.second.first);
                     }
@@ -87,7 +87,7 @@ void PartialOrder::get_partial_order(Data& data) {
         }
 
         // y-dim
-        else if (i == 2) {
+        else if (i == 1) {
             str = "y";
             std::cout << str << " dim" << std::endl;
             for (const auto& y: data.stitching_planes[i]) {
