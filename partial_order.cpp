@@ -41,7 +41,8 @@ double PartialOrder::compute_overlap_area(int dim, Block from, Block to) {
     return overlap_area;
 }
 
-void Graph::check_adjacency_matrix() {
+void Graph::show_adjacency_matrix() {
+    std::cout << "show"
     for (const auto& row: this->adj_matrix) {
         std::cout << row.first << std::endl;
     }
@@ -143,5 +144,5 @@ void PartialOrder::get_partial_order(Data& data) {
     }
 
     // check adj_matrx
-    partial_order_x.check_adjacency_matrix();
+    partial_order_x.show_adjacency_matrix();
 }
