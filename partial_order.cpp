@@ -78,13 +78,37 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+                        
                         if (overlap_area != 0.0)
                             partial_order_x.add_edge_list(cl.second.first.first, cl.second.second.first);
                     }
                 }
             }
         }
+
         // y-dim
+        else if (i == 2) {
+            str = "y";
+            std::cout << str << " dim" << std::endl;
+            for (const auto& y: data.stitching_planes[i]) {
+                std::cout << y << std::endl;
+
+                for (auto& cl: data.corner_links) {
+                    if (cl.first.y > y) break;
+                    if (cl.first.y == y) {
+                        double overlap_area = compute_overlap_area(i, cl.second.first.first, cl.second.second.first);
+                        std::cout << std::endl;
+                        std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
+                        std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
+                        std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+
+                        if (overlap_area != 0.0)
+                            partial_order_y.add_edge_list(cl.second.first.first, cl.second.second.first);
+                    }
+                }
+            }
+        }
+
         // z-dim
         else if (i == 2) {
             str = "z";
@@ -100,6 +124,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
                         std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+
                         if (overlap_area != 0.0)
                             partial_order_z.add_edge_list(cl.second.first.first, cl.second.second.first);
                     }
