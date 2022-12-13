@@ -17,7 +17,7 @@ void Graph::add_edge_list(Block& from, Block& to) {
 
 void Graph::add_edge_list(Block& from, Block& to, double weight) {
     // adjacency matrix
-    std::cout << "\n>>>>establish adjacency matrix" << std::endl;
+    std::cout << ">>>>establish adjacency matrix" << std::endl;
     std::cout << "from: " << from.name << " addr = "<< &from << std::endl;
     std::cout << "to: " << to.name << " addr = " << &to << std::endl;
     adj_matrix[&from][&to] = weight;
@@ -48,12 +48,14 @@ double PartialOrder::compute_overlap_area(int dim, Block from, Block to) {
 }
 
 void Graph::show_adjacency_matrix() {
-    std::cout << "\n>>> show adjacency matrix: " << std::endl;
+    std::cout << ">>> show adjacency matrix: " << std::endl;
     std::cout << "size of adj_matrix: " << adj_matrix.size() << std::endl;
     for (const auto& adj: this->adj_matrix) {
         for (const auto& row: adj.second) {
-            std::cout << row.second << " ";
+            // std::cout << row.second << " ";
+            std::cout << "\t\t" << row.first->name << "\t\n";
         }
+        std::cout << adj.first->name;
         std::cout << std::endl;
     }
 }
@@ -61,11 +63,13 @@ void Graph::show_adjacency_matrix() {
 void PartialOrder::get_partial_order(Data& data) {
     std::cout << "type of data: "
               << abi::__cxa_demangle(typeid(data).name(), 0, 0, 0) << std::endl;
+
     // initialize stitching_planes
     data.stitching_planes.reserve(3);
     data.stitching_planes = {{}, {}, {}};
     std::cout << "sp size: " << data.stitching_planes.size() << std::endl;
     
+    // establish stitching_planes
     for (const auto& cl: data.corner_links) {
         if (!data.stitching_planes.at(0).count(cl.first.x))
             data.stitching_planes[0].emplace(cl.first.x);
@@ -76,11 +80,22 @@ void PartialOrder::get_partial_order(Data& data) {
     }
     std::cout << std::endl;
 
+    // partial order
     Graph partial_order_x, partial_order_y, partial_order_z;
+
+    // adjacency matrix init
+    for (auto& block1: data.blocks) {
+        for (auto& block2: data.blocks) {
+            partial_order_x.add_edge_list(block1, block2, 0.0);
+            partial_order_y.add_edge_list(block1, block2, 0.0);
+            partial_order_z.add_edge_list(block1, block2, 0.0);
+        }
+    }
 
     // x, y, z dimension
     for (int i = 0; i < data.stitching_planes.size(); ++i) {
         std::string str = "";
+
         // x-dim
         if (i == 0) {
             str = "x";
@@ -158,10 +173,11 @@ void PartialOrder::get_partial_order(Data& data) {
     }
 
     // show adj_matrx
-    std::cout << "show adj_matrix of x-dim: " << std::endl;
+    std::cout << "\nshow adj_matrix of x-dim: " << std::endl;
     partial_order_x.show_adjacency_matrix();
-    std::cout << "show adj_matrix of y-dim: " << std::endl;
+    std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
     partial_order_y.show_adjacency_matrix();
-    std::cout << "show adj_matrix of z-dim: " << std::endl;
+    std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
     partial_order_z.show_adjacency_matrix();
+
 }
