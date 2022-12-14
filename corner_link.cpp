@@ -69,7 +69,7 @@ void CornerLink::get_corner_link(Data& data) {
                         corner_pair cp(corner1, corner2);
 
                         if (data.corner_links.find(v.second) == data.corner_links.end()) {
-                            std::cout << "corner_link exist\n";
+                            // std::cout << "corner_link exist\n";
                             corner_link cl(v.second, cp);
                             data.corner_links.emplace(cl);
                         }
@@ -81,7 +81,7 @@ void CornerLink::get_corner_link(Data& data) {
                         }
                     }
                 }
-                std::cout << std::endl;
+                // std::cout << std::endl;
             }
 
             // Find 1/8 neighboring corners of the hamming distance = 3
@@ -95,7 +95,7 @@ void CornerLink::get_corner_link(Data& data) {
                         corner_pair cp(corner1, corner2);
 
                         if (data.corner_links.find(v.second) == data.corner_links.end()) {
-                            std::cout << "corner_link exist\n";
+                            // std::cout << "corner_link exist\n";
                             corner_link cl(v.second, cp);
                             data.corner_links.emplace(cl);
                         }
