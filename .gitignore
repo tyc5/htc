@@ -3,3 +3,4 @@ HTC
 testcase/awr1843/output.txt
 .clangd
 run_small.sh
+testcase/test_small/output.txt
