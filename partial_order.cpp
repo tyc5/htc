@@ -17,7 +17,7 @@ void Graph::add_edge_list(Block& from, Block& to) {
 
 void Graph::add_edge_list(Block& from, Block& to, double weight) {
     // adjacency matrix
-    std::cout << ">>>>establish adjacency matrix" << std::endl;
+    std::cout << ">>>> establish adjacency matrix" << std::endl;
     std::cout << "from: " << from.name << " addr = "<< &from << std::endl;
     std::cout << "to: " << to.name << " addr = " << &to << std::endl;
     adj_matrix[&from][&to] = weight;
@@ -48,7 +48,7 @@ double PartialOrder::compute_overlap_area(int dim, Block from, Block to) {
 }
 
 void Graph::show_adjacency_matrix() {
-    std::cout << ">>> show adjacency matrix: " << std::endl;
+    std::cout << ">>>> show adjacency matrix: " << std::endl;
     std::cout << "size of adj_matrix: " << adj_matrix.size() << std::endl;
     for (const auto& adj: this->adj_matrix) {
         for (const auto& row: adj.second) {
@@ -56,6 +56,17 @@ void Graph::show_adjacency_matrix() {
             std::cout << "\t\t" << row.first->name << "\t\n";
         }
         std::cout << adj.first->name;
+        std::cout << std::endl;
+    }
+}
+
+void Graph::show_adjacency_list() {
+    std::cout << ">>>> show adjacency list: " << std::endl;
+    for (const auto& list: adj_list) {
+        std::cout << "Block " << list.first << " is connected with: \n\t";
+        for (const auto& block: list.second) {
+            std::cout << block.name << " ";
+        }
         std::cout << std::endl;
     }
 }
@@ -173,11 +184,18 @@ void PartialOrder::get_partial_order(Data& data) {
     }
 
     // show adj_matrx
-    std::cout << "\nshow adj_matrix of x-dim: " << std::endl;
-    partial_order_x.show_adjacency_matrix();
-    std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
-    partial_order_y.show_adjacency_matrix();
-    std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
-    partial_order_z.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of x-dim: " << std::endl;
+    // partial_order_x.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
+    // partial_order_y.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
+    // partial_order_z.show_adjacency_matrix();
 
+    // show adj_list
+    std::cout << "\n>>> show adj_list of x-dim: " << std::endl;
+    partial_order_x.show_adjacency_list();
+    std::cout << "\n>>> show adj_list of y-dim: " << std::endl;
+    partial_order_y.show_adjacency_list();
+    std::cout << "\n>>> show adj_list of z-dim: " << std::endl;
+    partial_order_z.show_adjacency_list();
 }
