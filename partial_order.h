@@ -16,6 +16,7 @@ public:
     void add_edge_list(Block& from, Block& to);
     void add_edge_list(Block& from, Block& to, double weight);
     void show_adjacency_matrix();
+    void show_adjacency_list();
 };
 
 class PartialOrder {

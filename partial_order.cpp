@@ -17,9 +17,9 @@ void Graph::add_edge_list(Block& from, Block& to) {
 
 void Graph::add_edge_list(Block& from, Block& to, double weight) {
     // adjacency matrix
-    std::cout << ">>>>establish adjacency matrix" << std::endl;
-    std::cout << "from: " << from.name << " addr = "<< &from << std::endl;
-    std::cout << "to: " << to.name << " addr = " << &to << std::endl;
+    std::cout << ">>>> establish adjacency matrix" << std::endl;
+    std::cout << "from:\t" << from.name << "\taddr = "<< &from << std::endl;
+    std::cout << "to:\t\t" << to.name << "\taddr = " << &to << std::endl << std::endl;
     adj_matrix[&from][&to] = weight;
 }
 
@@ -48,14 +48,25 @@ double PartialOrder::compute_overlap_area(int dim, Block from, Block to) {
 }
 
 void Graph::show_adjacency_matrix() {
-    std::cout << ">>> show adjacency matrix: " << std::endl;
-    std::cout << "size of adj_matrix: " << adj_matrix.size() << std::endl;
+    std::cout << ">>>> show adjacency matrix: " << std::endl;
+    std::cout << "size of adj_matrix: " << adj_matrix.size() << " x " << adj_matrix.begin()->second.size() << std::endl;
     for (const auto& adj: this->adj_matrix) {
         for (const auto& row: adj.second) {
             // std::cout << row.second << " ";
-            std::cout << "\t\t" << row.first->name << "\t\n";
+            std::cout << "\t\t" << row.first->name << "\t";
         }
-        std::cout << adj.first->name;
+        std::cout << std::endl << adj.first->name;
+        std::cout << std::endl;
+    }
+}
+
+void Graph::show_adjacency_list() {
+    std::cout << ">>>> show adjacency list: " << std::endl;
+    for (const auto& list: adj_list) {
+        std::cout << "Block " << list.first << " is connected with: \n\t";
+        for (const auto& block: list.second) {
+            std::cout << block.name << " ";
+        }
         std::cout << std::endl;
     }
 }
@@ -63,6 +74,12 @@ void Graph::show_adjacency_matrix() {
 void PartialOrder::get_partial_order(Data& data) {
     std::cout << "type of data: "
               << abi::__cxa_demangle(typeid(data).name(), 0, 0, 0) << std::endl;
+
+    // print block list
+    std::cout << "Block Lists:\n";
+    for (const auto& block : data.blocks) std::cout << block.name << std::endl;
+    // ! debug
+    // exit(1);
 
     // initialize stitching_planes
     data.stitching_planes.reserve(3);
@@ -84,6 +101,9 @@ void PartialOrder::get_partial_order(Data& data) {
     Graph partial_order_x, partial_order_y, partial_order_z;
 
     // adjacency matrix init
+    std::cout << "/=================================================================/\n";
+    std::cout << "/====================    Init partial_order   ====================/\n";
+    std::cout << "/=================================================================/\n";
     for (auto& block1: data.blocks) {
         for (auto& block2: data.blocks) {
             partial_order_x.add_edge_list(block1, block2, 0.0);
@@ -91,13 +111,24 @@ void PartialOrder::get_partial_order(Data& data) {
             partial_order_z.add_edge_list(block1, block2, 0.0);
         }
     }
+    // show init adj_matrix
+    // std::cout << "show x-dim init adj_matrix:\n";
+    // partial_order_x.show_adjacency_matrix();
+    // std::cout << "show y-dim init adj_matrix:\n";
+    // partial_order_x.show_adjacency_matrix();
+    // std::cout << "show z-dim init adj_matrix:\n";
+    // partial_order_x.show_adjacency_matrix();
+    // return ;
 
-    // x, y, z dimension
+    // x, y, z dimension partial_order
+    std::cout << "\n/=================================================================/\n";
+    std::cout << "/==================== Establish partial_order ====================/\n";
+    std::cout << "/=================================================================/\n";
+
     for (int i = 0; i < data.stitching_planes.size(); ++i) {
         std::string str = "";
-        std::cout << "/========== establish partial order ==========/" << std::endl;
         // debug
-        if (i != 2) break;
+        if (i != 2) continue;
 
         // x-dim
         if (i == 0) {
@@ -112,7 +143,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         double overlap_area = compute_overlap_area(i, cl.second.first.first, cl.second.second.first);
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
-                        std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+                        std::cout << "overlap area: " << overlap_area << std::endl;
 
                         if (overlap_area != 0.0)
                             partial_order_x.add_edge_list(cl.second.first.first, cl.second.second.first);
@@ -137,7 +168,7 @@ void PartialOrder::get_partial_order(Data& data) {
                         std::cout << std::endl;
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
-                        std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+                        std::cout << "overlap area: " << overlap_area << std::endl;
 
                         if (overlap_area != 0.0)
                             partial_order_y.add_edge_list(cl.second.first.first, cl.second.second.first);
@@ -153,20 +184,28 @@ void PartialOrder::get_partial_order(Data& data) {
             str = "z";
             std::cout << str << "-dim" << std::endl;
             for (const auto& z: data.stitching_planes[i]) {
-                std::cout << z << std::endl;
+                std::cout << "/-------------------------------" << std::endl;
+                std::cout << "/ stitching_planes z = " << z << std::endl;
+                std::cout << "/-------------------------------" << std::endl;
 
                 for (auto& cl: data.corner_links) {
-                    if (cl.first.z > z) break;
+                    // std::cout << "Corner Link Point: " << cl.first << std::endl;
+                    // std::cout << "\tCorner Link Block1: " << cl.second.first.first.name << std::endl;
+                    // std::cout << "\tCorner Link Block2: " << cl.second.second.first.name << std::endl;
+
+                    // if (cl.first.z > z) continue;
                     if (cl.first.z == z) {
                         double overlap_area = compute_overlap_area(i, cl.second.first.first, cl.second.second.first);
                         std::cout << std::endl;
                         std::cout << "Block 1: " << cl.second.first.first.name << std::endl;
                         std::cout << "Block 2: " << cl.second.second.first.name << std::endl;
-                        std::cout << "overlap area: " << overlap_area << std::endl << std::endl;
+                        std::cout << "\tOverlap Area: " << overlap_area << std::endl;
 
+                        // adj_list
                         if (overlap_area != 0.0)
                             partial_order_z.add_edge_list(cl.second.first.first, cl.second.second.first);
 
+                        // adj_matrix
                         partial_order_z.add_edge_list(cl.second.first.first, cl.second.second.first, overlap_area);
                     }
                 }
@@ -180,7 +219,14 @@ void PartialOrder::get_partial_order(Data& data) {
     // partial_order_x.show_adjacency_matrix();
     // std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
     // partial_order_y.show_adjacency_matrix();
-    std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
-    partial_order_z.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
+    // partial_order_z.show_adjacency_matrix();
 
+    // show adj_list
+    std::cout << "\n>>> show adj_list of x-dim: " << std::endl;
+    partial_order_x.show_adjacency_list();
+    std::cout << "\n>>> show adj_list of y-dim: " << std::endl;
+    partial_order_y.show_adjacency_list();
+    std::cout << "\n>>> show adj_list of z-dim: " << std::endl;
+    partial_order_z.show_adjacency_list();
 }

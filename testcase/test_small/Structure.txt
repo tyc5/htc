@@ -1,0 +1,159 @@
+Unit mm						
+						
+Case	Test_Small
+Location	0	0	0			
+Geometry	60	80	10
+						
+Block	PCB					
+Location	0	0	3			
+Geometry	60	80	1
+Material	Eff_PCB					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	Case_Bottom
+Location	0	0	0
+Geometry	60	80	3			
+Material	Acrylic					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End						
+						
+Block	Case_Top					
+Location	0	0	7		
+Geometry	60	80	3			
+Material	Acrylic					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End	
+
+Block	TIM		
+Location	27	37	5.1
+Geometry	6	6	1.9	
+Material	TIM_TG_A6200F					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End	
+
+Block	Test_Small_Die
+Location	27	37	4			
+Geometry	6	6	1.1
+Material	Die_Si					
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_01
+Location	0   0   4
+Geometry	27  37  1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_02
+Location	27  0   4
+Geometry	6   6   1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_03
+Location	33  0   4
+Geometry	27  37  1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_04
+Location	0   37  4
+Geometry	27  6   1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_05
+Location	33  37  4
+Geometry	27  6   1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_06
+Location	0   43  4
+Geometry	27  37  1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_07
+Location	27  43  4
+Geometry	6   6   1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_08
+Location	33  43  4
+Geometry	27  37  1.1
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_09
+Location	0   0   5.1
+Geometry	27  37  1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_10
+Location	27  0   5.1
+Geometry	6   6   1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_11
+Location	33  0   5.1
+Geometry	27  37  1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_12
+Location	0   37  5.1
+Geometry	27  6   1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_13
+Location	33  37  5.1
+Geometry	27  6   1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_14
+Location	0   43  5.1
+Geometry	27  37  1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_15
+Location	27  43  5.1
+Geometry	6   6   1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	AIR_16
+Location	33  43  5.1
+Geometry	27  37  1.9
+Material	AIR
+Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
+End
+
+Block	Source					
+Location	27	37	4
+Geometry	6	6	0			
+Material	Power					
+Face	T					
+End					
