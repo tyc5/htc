@@ -86,6 +86,8 @@
         "--fallback-style=file",
         // 同时开启的任务数量
         "-j=2",
+        // 告訴clangd用那個編譯器進行編譯，路徑參考which g++的路徑
+        "--query-driver=/usr/bin/g++",
         // pch优化的位置(memory 或 disk，选择memory会增加内存开销，但会提升性能) 推荐在板子上使用disk
         "--pch-storage=disk",
         // 启用这项时，补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符，乃至函数末
