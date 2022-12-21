@@ -95,6 +95,9 @@ void PartialOrder::get_partial_order(Data& data) {
     // x, y, z dimension
     for (int i = 0; i < data.stitching_planes.size(); ++i) {
         std::string str = "";
+        std::cout << "/========== establish partial order ==========/" << std::endl;
+        // debug
+        if (i != 2) break;
 
         // x-dim
         if (i == 0) {
@@ -173,10 +176,10 @@ void PartialOrder::get_partial_order(Data& data) {
     }
 
     // show adj_matrx
-    std::cout << "\nshow adj_matrix of x-dim: " << std::endl;
-    partial_order_x.show_adjacency_matrix();
-    std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
-    partial_order_y.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of x-dim: " << std::endl;
+    // partial_order_x.show_adjacency_matrix();
+    // std::cout << "\nshow adj_matrix of y-dim: " << std::endl;
+    // partial_order_y.show_adjacency_matrix();
     std::cout << "\nshow adj_matrix of z-dim: " << std::endl;
     partial_order_z.show_adjacency_matrix();
 
