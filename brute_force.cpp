@@ -86,6 +86,8 @@ double BruteForce::compute_resistance(int dim, Block from, Block to, double over
         l_from = from.len_x / 2;
         l_to = to.len_x / 2;
     }
+    
+    return resistance;
 }
 
 void BruteForce::create_link(Data& data) {
