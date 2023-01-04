@@ -48,7 +48,7 @@ End
 
 Block	AIR_02
 Location	27  0   4
-Geometry	6   6   1.1
+Geometry	6   37   1.1
 Material	AIR
 Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
 End
@@ -104,7 +104,7 @@ End
 
 Block	AIR_10
 Location	27  0   5.1
-Geometry	6   6   1.9
+Geometry	6   37   1.9
 Material	AIR
 Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
 End
@@ -139,7 +139,7 @@ End
 
 Block	AIR_15
 Location	27  43  5.1
-Geometry	6   6   1.9
+Geometry	6   37   1.9
 Material	AIR
 Emissivity	0.8	0.8	0.8	0.8	0.8	0.8
 End
