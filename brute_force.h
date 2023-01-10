@@ -6,8 +6,8 @@
 class BFGraph {
 private:
     int num_vertex;
-    std::unordered_map<std::string, std::vector<Block>> adj_list;
-    std::unordered_map<Block*, std::unordered_map<Block*, double>> adj_matrix;
+    std::unordered_map<std::string, std::vector<Block> > adj_list;
+    std::unordered_map<Block*, std::unordered_map<Block*, double> > adj_matrix;
 
 public:
     BFGraph(): num_vertex(0) {};
