@@ -1,5 +1,6 @@
 Unit mm						
-						
+LIB_material testcase/test_small/Material_parameter.txt
+
 Case	Test_Small
 Location	0	0	0			
 Geometry	60	80	10
