@@ -1,4 +1,5 @@
 #include "parser.h"
+#include <fstream>
 
 void Parser::parser(const std::string& filename, Data &data) {
     std::cout << ">> Parsing...\n";
@@ -13,6 +14,8 @@ void Parser::parser(const std::string& filename, Data &data) {
     // Place Space
     Space &place_space = data.place_space;
     in_file >> str >> place_space.unit;
+
+    in_file >> str >> data.material_path;
 
     in_file >> str >> place_space.name;
 
@@ -108,6 +111,32 @@ void Parser::parser(const std::string& filename, Data &data) {
     */
     // print_info(data);
     in_file.close();
+
+    // ====================
+    // read material
+    // ====================
+    std::ifstream material_file;
+    material_file.open(data.material_path, std::ios::in);
+    if (material_file.fail()) {
+        std::cerr << "Failed to open file: " << data.material_path << ".\n";
+        return;
+    }
+    std::cout << "Sucessed to open file: " << data.material_path << std::endl;
+    // std::cout << "material_path: " << data.material_path << std::endl;
+    std::string material;
+    while (!material_file.eof()) {
+        // std::cout << "begin read material file" << std::endl;
+        std::getline(material_file, str);
+        // std::cout << str << std::endl;
+        material_file >> str;
+        material_file >> material;
+        material_file >> data.materials[material].x
+                      >> data.materials[material].y
+                      >> data.materials[material].z
+                      >> data.materials[material].density
+                      >> data.materials[material].specific_heat;
+    }
+
 }
 
 void Parser::print_info(Data &data) {
@@ -175,5 +204,14 @@ void Parser::print_info(Data &data) {
         // printf("npp: (%f, %f, %f)\n", corners.linking_corners["npp"].x, corners.linking_corners["npp"].y, corners.linking_corners["npp"].z);
         // printf("pnp: (%f, %f, %f)\n", corners.linking_corners["pnp"].x, corners.linking_corners["pnp"].y, corners.linking_corners["pnp"].z);
         // printf("ppn: (%f, %f, %f)\n", corners.linking_corners["ppn"].x, corners.linking_corners["ppn"].y, corners.linking_corners["ppn"].z);
+    }
+
+    for (const auto& m: data.materials) {
+        std::cout << "\nMaterial: " << m.first << std::endl;
+        std::cout << "X: " << m.second.x << std::endl;
+        std::cout << "Y: " << m.second.y << std::endl;
+        std::cout << "Z: " << m.second.z << std::endl;
+        std::cout << "Density: " << m.second.density << std::endl;
+        std::cout << "Specific Heat: " << m.second.specific_heat << std::endl; 
     }
 }

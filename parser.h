@@ -124,6 +124,14 @@ public:
 //         for (int i = 0; i < 6; ++i) emissivity[i] = 0;
 //     }
 // };
+class Material {
+public:
+    double x;
+    double y;
+    double z;
+    double density;
+    double specific_heat;
+};
 
 typedef std::pair<Block, std::string> corner;
 typedef std::pair<corner, corner> corner_pair;
@@ -132,11 +140,13 @@ typedef std::pair<Point, corner_pair> corner_link;
 class Data {
 public:
     Space place_space;
+    std::string material_path;
     // std::vector<SolidBlock> solid_blocks;
     std::vector<Block> blocks;
     // std::multimap<Point, std::unordered_map<std::string, std::string> > corner_links;
     std::multimap<Point, corner_pair> corner_links;
     std::vector<std::set<double> > stitching_planes;
+    std::unordered_map<std::string, Material> materials;
 };
 
 class Parser {
