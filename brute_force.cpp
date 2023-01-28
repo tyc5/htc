@@ -18,7 +18,7 @@ void BFGraph::add_edge_list(Block& from, Block& to) {
 void BFGraph::add_edge_list(Block& from, Block& to, double weight) {
     // adjacency matrix
     std::cout << ">>>> establish adjacency matrix" << std::endl;
-    std::cout << "from:\t" << from.name << "\taddr = "<< &from << std::endl;
+    std::cout << "from:\t" << from.name << "\taddr = " << &from << std::endl;
     std::cout << "to  :\t" << to.name << "\t\taddr = " << &to << std::endl << std::endl;
     adj_matrix[&from][&to] = weight;
 }
