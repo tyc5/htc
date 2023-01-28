@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     parser.print_info(data);
     // corner_link.get_corner_link(data);
     // partial_order.get_partial_order(data);
-    brute_force.create_link(data);
+    // brute_force.create_link(data);
 
     time_t end = clock();
     float t_used = (float)(end - start) / CLOCKS_PER_SEC;
