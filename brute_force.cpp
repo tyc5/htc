@@ -73,20 +73,45 @@ double BruteForce::compute_overlap_area(int dim, Block from, Block to) {
     return overlap_area;
 }
 
-double BruteForce::compute_resistance(int dim, Block from, Block to, double overlap_area) {
+double BruteForce::compute_resistance(int dim, Block from, Block to, double overlap_area, std::unordered_map<std::string, Material>& materials) {
     double resistance = 0.0;
-    double l_from = 0.0;
-    double l_to = 0.0;
-    double k_from = 0.0;
-    double k_to = 0.0;
-    double r_from = 0.0;
-    double r_to = 0.0;
+    double l_from = 0.0; double l_to = 0.0;
+    double k_from = 0.0; double k_to = 0.0;
+    double r_from = 0.0; double r_to = 0.0;
     
+    // x-dim
     if (dim == 0) {
         l_from = from.len_x / 2;
         l_to = to.len_x / 2;
+        k_from = materials[from.material].x;
+        k_to = materials[to.material].x;
+        r_from = l_from / (k_from * overlap_area);
+        r_to = l_to / (k_to * overlap_area);
+        resistance = r_from + r_to;
     }
-    
+
+    // y-dim
+    if (dim == 1) {
+        l_from = from.len_y / 2;
+        l_to = to.len_y / 2;
+        k_from = materials[from.material].y;
+        k_to = materials[to.material].y;
+        r_from = l_from / (k_from * overlap_area);
+        r_to = l_to / (k_to * overlap_area);
+        resistance = r_from + r_to;
+    }
+
+    // z-dim
+    if (dim == 2) {
+        l_from = from.len_z / 2;
+        l_to = to.len_z / 2;
+        k_from = materials[from.material].z;
+        k_to = materials[to.material].z;
+        r_from = l_from / (k_from * overlap_area);
+        r_to = l_to / (k_to * overlap_area);
+        resistance = r_from + r_to;
+    }
+
     return resistance;
 }
 
@@ -120,25 +145,29 @@ void BruteForce::create_link(Data& data) {
             if (&block_from == &block_to) continue;
 
             double overlap_area = 0.0;
+            double resistance = 0.0;
             // x-dim
             if ((block_from.loc.x == (block_to.loc.x + block_to.len_x)) || ((block_from.loc.x + block_from.len_x) == block_to.loc.x)) {
                 overlap_area = compute_overlap_area(0, block_from, block_to);
                 if (overlap_area == 0.0) continue;
-                graph[0].add_edge_list(block_from, block_to, overlap_area);
+                resistance = compute_resistance(0, block_from, block_to, overlap_area, data.materials);
+                graph[0].add_edge_list(block_from, block_to, resistance);
                 graph[0].add_edge_list(block_from, block_to);
             }
             // y-dim
             else if ((block_from.loc.y == (block_to.loc.y + block_to.len_y)) || ((block_from.loc.y + block_from.len_y) == block_to.loc.y)) {
                 overlap_area = compute_overlap_area(1, block_from, block_to);
                 if (overlap_area == 0.0) continue;
-                graph[1].add_edge_list(block_from, block_to, overlap_area);
+                resistance = compute_resistance(1, block_from, block_to, overlap_area, data.materials);
+                graph[1].add_edge_list(block_from, block_to, resistance);
                 graph[1].add_edge_list(block_from, block_to);
             }
             // z-dim
             else if ((block_from.loc.z == (block_to.loc.z + block_to.len_z)) || ((block_from.loc.z + block_from.len_z) == block_to.loc.z)) {
                 overlap_area = compute_overlap_area(2, block_from, block_to);
                 if (overlap_area == 0.0) continue;
-                graph[2].add_edge_list(block_from, block_to, overlap_area);
+                resistance = compute_resistance(2, block_from, block_to, overlap_area, data.materials);
+                graph[2].add_edge_list(block_from, block_to, resistance);
                 graph[2].add_edge_list(block_from, block_to);
             }
         }

@@ -22,7 +22,7 @@ class BruteForce {
 public:
     void create_link(Data& data);
     double compute_overlap_area(int dim, Block from, Block to);
-    double compute_resistance(int dim, Block from, Block to, double overlap_area);
+    double compute_resistance(int dim, Block from, Block to, double overlap_area, std::unordered_map<std::string, Material>& materials);
 };
 
 #endif
