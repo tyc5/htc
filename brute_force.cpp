@@ -17,9 +17,9 @@ void BFGraph::add_edge_list(Block& from, Block& to) {
 
 void BFGraph::add_edge_list(Block& from, Block& to, double weight) {
     // adjacency matrix
-    std::cout << ">>>> establish adjacency matrix" << std::endl;
-    std::cout << "from:\t" << from.name << "\taddr = " << &from << std::endl;
-    std::cout << "to  :\t" << to.name << "\t\taddr = " << &to << std::endl << std::endl;
+    // std::cout << ">>>> establish adjacency matrix" << std::endl;
+    // std::cout << "from:\t" << from.name << "\taddr = " << &from << std::endl;
+    // std::cout << "to  :\t" << to.name << "\t\taddr = " << &to << std::endl << std::endl;
     adj_matrix[&from][&to] = weight;
 }
 
@@ -138,9 +138,9 @@ void BruteForce::create_link(Data& data) {
     BFGraph z_graph(data.blocks.size());
     std::cout << "x_graph: " << &x_graph << "\ny_graph: " << &y_graph << "\nz_graph: " << &z_graph << std::endl;
 
-    std::cout << "\n/----- print blocks -----/\n";
+    std::cout << "\n/---------- print blocks ----------/\n";
     for (auto& block_from: data.blocks) {
-        std::cout << block_from.name << ": " << block_from.loc << std::endl;
+        std::cout << ">>> " << block_from.name << ": " << block_from.loc << " <<<\n" << std::endl;
         for (auto& block_to: data.blocks) {
             if (&block_from == &block_to) continue;
 
@@ -153,6 +153,12 @@ void BruteForce::create_link(Data& data) {
                 resistance = compute_resistance(0, block_from, block_to, overlap_area, data.materials);
                 graph[0].add_edge_list(block_from, block_to, resistance);
                 graph[0].add_edge_list(block_from, block_to);
+
+                // print resistance
+                std::cout << "/----- x-dim ----/" << std::endl;
+                std::cout << "From: " << block_from.name << std::endl;
+                std::cout << "To  : " << block_to.name << std::endl;
+                std::cout << " > R: " << resistance << std::endl << std::endl;
             }
             // y-dim
             else if ((block_from.loc.y == (block_to.loc.y + block_to.len_y)) || ((block_from.loc.y + block_from.len_y) == block_to.loc.y)) {
@@ -161,6 +167,12 @@ void BruteForce::create_link(Data& data) {
                 resistance = compute_resistance(1, block_from, block_to, overlap_area, data.materials);
                 graph[1].add_edge_list(block_from, block_to, resistance);
                 graph[1].add_edge_list(block_from, block_to);
+
+                // print resistance
+                std::cout << "/----- y-dim ----/" << std::endl;
+                std::cout << "From: " << block_from.name << std::endl;
+                std::cout << "To  : " << block_to.name << std::endl;
+                std::cout << " > R: " << resistance << std::endl << std::endl;
             }
             // z-dim
             else if ((block_from.loc.z == (block_to.loc.z + block_to.len_z)) || ((block_from.loc.z + block_from.len_z) == block_to.loc.z)) {
@@ -169,6 +181,12 @@ void BruteForce::create_link(Data& data) {
                 resistance = compute_resistance(2, block_from, block_to, overlap_area, data.materials);
                 graph[2].add_edge_list(block_from, block_to, resistance);
                 graph[2].add_edge_list(block_from, block_to);
+
+                // print resistance
+                std::cout << "/----- z-dim ----/" << std::endl;
+                std::cout << "From: " << block_from.name << std::endl;
+                std::cout << "To  : " << block_to.name << std::endl;
+                std::cout << " > R: " << resistance << std::endl << std::endl;
             }
         }
     }
